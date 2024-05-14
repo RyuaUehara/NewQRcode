@@ -8,6 +8,8 @@ const CameraJsQR2 = () => {
 
   const resetQrCodeText = () => {
     setQrCodeText("");
+    // ページをリロードする
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -86,7 +88,7 @@ const CameraJsQR2 = () => {
         onClick={resetQrCodeText}
         className="bg-red-900 text-white px-2 py-1 mb-2"
       >
-        もう一回
+        更新
       </button>
     </div>
   );
