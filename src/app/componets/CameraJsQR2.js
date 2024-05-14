@@ -99,4 +99,6 @@ const CameraJsQR2 = () => {
   );
 };
 
+const jsonData = { "name": "ひでと" };
+
 export default CameraJsQR2;
