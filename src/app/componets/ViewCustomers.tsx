@@ -45,6 +45,7 @@ const ViewCustomers = () => {
           <div className="flex flex-col items-center justify-start">
             {customers.map((customer) => (
               <Link
+                key={customer.id}
                 href={`/customer/login/${customer.id}`}
                 className="flex border-2 w-full px-2 py-1"
               >
