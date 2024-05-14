@@ -1,3 +1,7 @@
+"use client";
+
+import Link from "next/link";
+
 export default function Home() {
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
@@ -31,6 +35,7 @@ export default function Home() {
               </button>
             </form>
           </div>
+          <Link href="/">[back to home]</Link>
         </div>
       </div>
     </section>
