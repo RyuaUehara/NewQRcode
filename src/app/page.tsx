@@ -13,6 +13,9 @@ export default function Home() {
       <div className="flex h-screen items-center justify-center">
         <CameraJsQR2 />
       </div>
+      <div>
+        <a href="@/app/admin"></a>
+      </div>
     </div>
   );
 }
