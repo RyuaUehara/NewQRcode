@@ -1,12 +1,12 @@
 import React, { useRef, useEffect, useState } from "react";
-import QRCode from 'qrcode'; // qrcodeを直接インポートする
 import jsQR from "jsqr-es6";
+import QRCode from 'qrcode'; // qrcodeを直接インポートする
 
 const CameraJsQR2 = () => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const [qrCodeText, setQrCodeText] = useState("");
-  const [qrCodeDataURLs, setQrCodeDataURLs] = useState([]);
+  const [qrCodeDataURL, setQrCodeDataURL] = useState(""); // QRコードのDataURLを状態として持つ
 
   const resetQrCodeText = () => {
     setQrCodeText("");
@@ -66,16 +66,13 @@ const CameraJsQR2 = () => {
   };
 
   useEffect(() => {
-    const qrCodes = [];
-    jsonData.forEach((customerData) => {
-      QRCode.toDataURL(JSON.stringify(customerData), function (err, url) {
-        if (err) {
-          console.error(err);
-          return;
-        }
-        qrCodes.push(url);
-        setQrCodeDataURLs(qrCodes);
-      });
+    // コンポーネントがマウントされたときにQRコードのDataURLを生成する
+    QRCode.toDataURL(JSON.stringify(jsonData), function (err, url) {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      setQrCodeDataURL(url); // QRコードのDataURLを設定する
     });
   }, []);
 
@@ -88,9 +85,10 @@ const CameraJsQR2 = () => {
         <video ref={videoRef} width="320" height="240" autoPlay />
       </div>
       <p className="p-5 text-center w-full pt-5 h-20">{qrCodeText}</p>
-      {qrCodeDataURLs.map((url, index) => (
-        <img key={index} src={url} alt={`QR Code ${index + 1}`} />
-      ))}
+      {qrCodeDataURL && (
+        // QRコードのDataURLが利用可能な場合に画像として表示する
+        <img src={qrCodeDataURL} alt="QR Code" />
+      )}
       <button
         onClick={resetQrCodeText}
         className="bg-red-900 text-white px-2 py-1 mb-2"
@@ -101,10 +99,6 @@ const CameraJsQR2 = () => {
   );
 };
 
-const jsonData = [
-  { "customerName": "ひでと" },
-  { "customerName": "たろう" },
-  // 他の顧客情報を追加する
-];
+const jsonData = { "name": "ひでと" };
 
 export default CameraJsQR2;
