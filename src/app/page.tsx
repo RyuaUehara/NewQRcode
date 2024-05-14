@@ -14,7 +14,7 @@ export default function Home() {
         <CameraJsQR2 />
       </div>
       <div>
-        <a href="@/app/admin">管理者ページ</a>
+      <Link href="/admin">管理者画面</Link>
       </div>
     </div>
   );
