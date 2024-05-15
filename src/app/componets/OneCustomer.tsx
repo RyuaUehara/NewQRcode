@@ -34,7 +34,7 @@ const OneCustomer = () => {
       </div>
       {customer && (
         <div className="flex flex-col items-center justify-start">
-          <p>{JSON.stringify(customer)}</p>
+          <p>訪問先：{JSON.stringify(customer)} 様 宅</p>
         </div>
       )}
     </div>
