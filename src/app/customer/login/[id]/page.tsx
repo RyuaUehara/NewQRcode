@@ -9,6 +9,7 @@ export default function Home() {
       <div>
         <OneCustomer />
       </div>
+      
     </div>
   );
 }
