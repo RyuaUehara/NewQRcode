@@ -30,7 +30,7 @@ const OneCustomer = () => {
   return (
     <div className="w-1/2 flex flex-col">
       <div className="flex justify-between mb-5">
-        <p className="text-center font-bold text-3xl">Customer Details</p>
+        <p className="text-center font-bold text-3xl">ヘルパーログイン画面</p>
       </div>
       {customer && (
         <div className="flex flex-col items-center justify-start">
