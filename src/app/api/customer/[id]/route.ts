@@ -11,5 +11,12 @@ export const GET = async (
   const id: number = parseInt(params.id);
 
   const customer = await prisma.customer.findFirst({ where: { id } });
-  return NextResponse.json(customer);
+
+  if (customer) {
+    const { customerName } = customer;
+    return NextResponse.json(customerName);
+  } else {
+    // 顧客が見つからない場合の処理
+    return NextResponse.json({ error: "Customer not found" }, { status: 404 });
+  }
 };
