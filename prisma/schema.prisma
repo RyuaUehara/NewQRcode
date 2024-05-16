@@ -18,10 +18,12 @@ model Customer {
   customerName String?
 }
 
-model AttendanceRecord {
+model visits {
   id        Int      @id @default(autoincrement())
-  helperName String
-  customerName String
-  checkIn   DateTime?
-  checkOut  DateTime?
+  helperID Int?
+  helperName String?
+  customerName String?
+  start_time DateTime?
+  end_time DateTime?
+  work_status Int? @default(0)
 }
