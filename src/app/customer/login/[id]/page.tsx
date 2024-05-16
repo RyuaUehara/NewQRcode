@@ -16,7 +16,7 @@ export default function Home() {
 
   const [helperID, setHelperID] = useState<number | null>(null);
   const [helperName, setHelperName] = useState<string | null>(null);
-  const handlesubmit = async () => {
+  const handlesubmitin = async () => {
     const response = await fetch("/api/inout", {
       method: "POST",
       headers: {
@@ -99,7 +99,7 @@ export default function Home() {
 
       </div>
       <div>
-        <button onClick={handlesubmit}>入出</button>
+        <button onClick={handlesubmitin}>入出</button>
         <button>退出</button>
       </div>
 
