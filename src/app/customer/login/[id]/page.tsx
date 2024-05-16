@@ -12,7 +12,6 @@ export default function Home() {
         <OneCustomer />
       </div>
       <div>
-        <label htmlFor="helperID">IDを入力してください</label>
         <ViewHelpers />
       </div>
     </div>
