@@ -20,7 +20,7 @@ model Customer {
 
 model visits {
   id        Int      @id @default(autoincrement())
-  helperID Int?
+  helperID String?
   helperName String?
   customerName String?
   start_time DateTime?
