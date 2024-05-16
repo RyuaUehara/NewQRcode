@@ -1,4 +1,4 @@
-export type InoutType = {
+export type visitsType = {
   id: number;
   helperid: string;
   helpername: string;
