@@ -4,12 +4,13 @@ import { useState } from "react";
 import Link from "next/link";
 import OneCustomer from "@/app/componets/OneCustomer";
 import ViewHelpers from "@/app/componets/ViewHelpers";
+import Inout from "@/app/componets/Inout";
 
 export default function Home() {
   return (
     <div>
       <div>
-        <OneCustomer />
+        <Inout />
       </div>
       <div>
         <ViewHelpers />
