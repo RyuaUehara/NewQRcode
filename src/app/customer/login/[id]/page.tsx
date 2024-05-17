@@ -1,17 +1,19 @@
 "use client";
 import { CustomerType } from "@/app/api/customer/type";
+import { visitsType } from "@/app/api/inout/type";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import OneCustomer from "@/app/componets/OneCustomer";
 import ViewHelpers from "@/app/componets/ViewHelpers";
 import { HelperType } from "@/app/api/helper/type";
+import { Imprima } from "next/font/google";
 
 export default function Home() {
   const [customerName, setCustomer] = useState<CustomerType | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const id = window.location.pathname.split("/").pop(); // Get id from URL path
   const [helpers, setHelpers] = useState<HelperType[]>([]);
-
+  const [visits, setVisits] = useState<visitsType[]>([]);
   const [helperID, setHelperID] = useState<number | null>(null);
   const [helperName, setHelperName] = useState<string | null>(null);
   const handlesubmitin = async () => {
@@ -63,6 +65,7 @@ export default function Home() {
     //setSelectedHelper(id);
   };
 
+ 
   return (
     <div>
       <div>
@@ -87,7 +90,7 @@ export default function Home() {
               <select onChange={handleSelectHelper} value={helperID || ""}>
 
                 <option key={helperID}>
-                 ID:{helperID} ヘルパー名:{helperName}
+                  ID:{helperID} ヘルパー名:{helperName}
                 </option>
                 {helpers.map((helper) => (
                   <option key={helper.id} value={helper.helpername}>
@@ -104,6 +107,11 @@ export default function Home() {
         <button onClick={handlesubmitin}>入出</button>
         <button>退出</button>
       </div>
+
+      <div>
+
+      </div>
+
     </div>
   );
 }
