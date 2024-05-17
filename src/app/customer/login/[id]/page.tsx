@@ -11,7 +11,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const id = window.location.pathname.split("/").pop(); // Get id from URL path
   const [helpers, setHelpers] = useState<HelperType[]>([]);
-
+  const [visits, setVisits] = useState<visitsType[]>([]);
   const [helperID, setHelperID] = useState<number | null>(null);
   const [helperName, setHelperName] = useState<string | null>(null);
   const handlesubmitin = async () => {
@@ -85,11 +85,8 @@ export default function Home() {
               htmlFor='helperID'
             >
               ヘルパー名を選択してください
-              {/* tookdata */}
               <select onChange={handleSelectHelper} value={helperID || ""}>
-                <option key={helperID}>
-                  ID: {helperID} ヘルパー名: {helperName}
-                </option>
+                <option value=''>Select a helper</option>
                 {helpers.map((helper) => (
                   <option key={helper.id} value={helper.helpername}>
                     {helper.helpername}
