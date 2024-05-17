@@ -3,5 +3,7 @@ export type visitsType = {
   helperID: string;
   helperName: string;
   customerName: string;
+  start_time: Date;
+  end_time: Date;
   work_status: number;
 };

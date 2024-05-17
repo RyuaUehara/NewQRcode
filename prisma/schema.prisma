@@ -19,11 +19,11 @@ model Customer {
 }
 
 model visits {
-  id        Int      @id @default(autoincrement())
-  helperID String?
-  helperName String?
-  customerName String?
-  start_time DateTime?
-  end_time DateTime?
-  work_status Int? @default(0)
+  id            Int       @id @default(autoincrement())
+  helperID      String?
+  helperName    String?
+  customerName  String?
+  start_time    DateTime  @default(now()) // Set the default value to the current time
+  end_time      DateTime?
+  work_status   Int?      @default(0)
 }
