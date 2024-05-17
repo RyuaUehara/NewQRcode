@@ -9,13 +9,15 @@ import { HelperType } from "@/app/api/helper/type";
 import { Imprima } from "next/font/google";
 
 export default function Home() {
-  const [customerName, setCustomer] = useState<CustomerType | null>(null);
+  const [customerName, setCustomer] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const id = window.location.pathname.split("/").pop(); // Get id from URL path
   const [helpers, setHelpers] = useState<HelperType[]>([]);
   const [visits, setVisits] = useState<visitsType[]>([]);
-  const [helperID, setHelperID] = useState<number | null>(null);
+  const [helperID, setHelperID] = useState<string | null>(null);
   const [helperName, setHelperName] = useState<string | null>(null);
+  const [end_time, setend_time] = useState<Date | null>(null);
+
   const handlesubmitin = async () => {
     const response = await fetch("/api/inout", {
       method: "POST",
@@ -29,6 +31,21 @@ export default function Home() {
       }),
     });
     console.log(helperID, helperName, customerName);
+  };
+
+  const handlesubmitout = async () => {
+    const response = await fetch("/api/inout", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        helperID,
+        customerName,
+        end_time,
+      }),
+    });
+    console.log(helperID,customerName,end_time);
   };
 
   useEffect(() => {
@@ -61,11 +78,27 @@ export default function Home() {
     const helper = JSON.parse(event.target.value);
     setHelperID(helper.helperID);
     setHelperName(helper.helperName);
+    const fetchlogs = async () => {
+      const res = await fetch("/api/inout",{
+        method:"GET",
+        headers:{
+          "Conten-Type":"application/json",
+        },
+        body: JSON.stringify({
+          //visitsid,
+          helperID,
+          customerName,
+          //start_time,
+          end_time,
+        })
+      });
+
+    }
     //const id = parseInt(event.target.value);
     //setSelectedHelper(id);
   };
 
- 
+
   return (
     <div>
       <div>
@@ -105,7 +138,7 @@ export default function Home() {
       </div>
       <div>
         <button onClick={handlesubmitin}>入出</button>
-        <button>退出</button>
+        <button onClick={handlesubmitout}>退出</button>
       </div>
 
       <div>
