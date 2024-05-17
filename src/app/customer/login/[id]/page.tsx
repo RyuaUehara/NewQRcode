@@ -78,6 +78,22 @@ export default function Home() {
     const helper = JSON.parse(event.target.value);
     setHelperID(helper.helperID);
     setHelperName(helper.helperName);
+    const fetchlogs = async () => {
+      const res = await fetch("/api/inout",{
+        method:"GET",
+        headers:{
+          "Conten-Type":"application/json",
+        },
+        body: JSON.stringify({
+          //visitsid,
+          helperID,
+          customerName,
+          //start_time,
+          end_time,
+        })
+      });
+
+    }
     //const id = parseInt(event.target.value);
     //setSelectedHelper(id);
   };
