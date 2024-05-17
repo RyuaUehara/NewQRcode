@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import jsQR from "jsqr-es6";
 
+
 const CameraJsQR2 = () => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
@@ -76,20 +77,27 @@ const CameraJsQR2 = () => {
   };
 
   return (
-    <div className="flex flex-col w-1/2 items-center border-2">
-      <p className="text-center w-full font-bold text-xl pb-2">QRコードを読み込んでください</p>
+    <div className="">
+    
+      <p className="text-center w-full font-bold text-4xl pb-2">QRコード</p>  
+      
+      <p className="text-center w-full font-bold text-4xl pb-2">読み込んでください</p>  
       <video ref={videoRef} style={{ display: "none" }} />
       <canvas ref={canvasRef} style={{ display: "none" }} />
       <div>
-        <video ref={videoRef} width="320" height="240" autoPlay />
+        <video ref={videoRef} width="320" height="240" className="rounded-2xl border-double border-4 " autoPlay />
       </div>
       <p className="p-5 text-center w-full pt-5 h-20">{qrCodeText}</p>
+
+      <div className="w-full flex justify-center  ">
       <button
         onClick={resetQrCodeText}
-        className="bg-red-900 text-white px-2 py-1 mb-2"
+        className="bg-pink-400 text-white font-semibold text-5xl  px-10 py-4 mb-10 rounded-3xl"
       >
         更新
       </button>
+
+      </div>
     </div>
   );
 };
