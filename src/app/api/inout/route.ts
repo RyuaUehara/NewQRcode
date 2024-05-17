@@ -21,3 +21,20 @@ export const GET = async (req: Request, res: NextResponse) => {
     const view_visits = await prisma.visits.findMany();
     return NextResponse.json(view_visits);
 };
+
+export const PUT = async (
+  req: Request,
+  { params }: { params: { id: string } },
+  res: NextResponse
+) => {
+  try {
+    const id: number = parseInt(params.id);
+    const { start_time, end_time } = await req.json();
+
+    const update_visits = await prisma.visits.update({
+      data: { start_time, end_time },
+      where: { id },
+    });
+    return NextResponse.json(update_visits);
+  }
+};

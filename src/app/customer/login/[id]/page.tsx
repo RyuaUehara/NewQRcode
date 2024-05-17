@@ -5,12 +5,14 @@ import Link from "next/link";
 import OneCustomer from "@/app/componets/OneCustomer";
 import ViewHelpers from "@/app/componets/ViewHelpers";
 import { HelperType } from "@/app/api/helper/type";
+import { visitsType } from "@/app/api/inout/type";
 
 export default function Home() {
   const [customerName, setCustomer] = useState<CustomerType | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const id = window.location.pathname.split("/").pop(); // Get id from URL path
   const [helpers, setHelpers] = useState<HelperType[]>([]);
+
   const [visits, setVisits] = useState<visitsType[]>([]);
   const [helperID, setHelperID] = useState<number | null>(null);
   const [helperName, setHelperName] = useState<string | null>(null);
