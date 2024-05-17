@@ -27,33 +27,35 @@ const ViewCustomers = () => {
     };
 
     return (
-        <div className="w-1/2 flex flex-col ">
-          <div className="flex justify-between mb-5">
-            <p className="text-center font-bold text-3xl">Supabase: User table</p>
-            {isLoading ? (
-              <p>Reloading...</p>
-            ) : (
-              <button
-                onClick={handleReload}
-                type="button"
-                className="bg-blue-500 text-white px-2 py-1"
-              >
-                Reload
-              </button>
-            )}
-          </div>
-          <div className="flex flex-col items-center justify-start">
-            {customers.map((customer) => (
-              <Link
-                key={customer.id}
-                href={`/customer/login/${customer.id}`}
-                className="flex border-2 w-full px-2 py-1"
-              >
-                {JSON.stringify(customer)}
-              </Link>
-            ))}
-          </div>
-        </div>
+      <div className="flex flex-col">
+      <div className="flex flex-col items-center justify-start">
+      <p className="flex justify-center text-center font-bold text-3xl ">Supabase: User table</p>
+        {customers.map((customer) => (
+          <Link
+            key={customer.id}
+            href={`/customer/login/${customer.id}`}
+            className="flex border-2 w-full px-2 py-1"
+          >
+            {JSON.stringify(customer)}
+          </Link>
+        ))}
+      </div>
+      <div className="flex justify-between mt-5">
+       
+        {isLoading ? (
+          <p>Reloading...</p>
+        ) : (
+          <button
+            onClick={handleReload}
+            type="button"
+            className="bg-blue-500 text-white px-2 py-1"
+          >
+            Reload
+          </button>
+        )}
+      </div>
+    </div>
+    
       );
     };
     
