@@ -14,8 +14,8 @@ const QRicon = () => {
             <button>カメラ選択</button>
           </div>
         </div>
-
         <div></div>
+        div
       </div>
     </>
   );
