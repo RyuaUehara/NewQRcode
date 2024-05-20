@@ -3,8 +3,6 @@ import { CustomerType } from "@/app/api/customer/type";
 import { visitsType } from "@/app/api/inout/type";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import OneCustomer from "@/app/componets/OneCustomer";
-import ViewHelpers from "@/app/componets/ViewHelpers";
 import { HelperType } from "@/app/api/helper/type";
 import { Imprima } from "next/font/google";
 
