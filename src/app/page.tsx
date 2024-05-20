@@ -1,56 +1,20 @@
 "use client";
 
-import Link from "next/link"
-import { staffType } from "@/app/api/staff/type";
-import { useEffect, useState } from "react";
+import CameraJsQR2 from "@/app/componets/CameraJsQR2";
+import Link from "next/link";
+import Image from "next/image";
 
 export default function Home() {
-  const [staffid, setstaffid] = useState<number | null>(null);
-  const [staffname, setstaffname] = useState<string | null>(null);
-  const [staffs, setstaffs] = useState<staffType[]>([]);
-
-
-  useEffect(() => {
-    const fetchstaffs = async () => {
-      const response = await fetch("/api/staff");
-      const data = await response.json();
-      setstaffs(data);
-    };
-    fetchstaffs();
-  }, []);
-
-  const handleselectstaff = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedstaff = staffs.find(staff => staff.staffname === event.target.value);
-    if (selectedstaff) {
-      setstaffid(selectedstaff.id);
-      setstaffname(selectedstaff.staffname);
-    }
-  }
-
   return (
-    <div>
-      <div>
-        ヘルパー名を選んでください
+    <div className="w-screen">
+      <div className="bg-pink-400 text-white font-semibold text-4xl p-2 flex items-center justify-center">
+        訪問介護時間管理
       </div>
-      <label
-        className='text-center font-bold text-3xl'
-        htmlFor='staffid'
-      >
-        <select onChange={handleselectstaff} value={staffid || ""}>
-
-          <option key={staffid}>
-            ID:{staffid} ヘルパー名:{staffname}
-          </option>
-          {staffs.map((staff) => (
-            <option key={staff.id} value={staff.staffname}>
-              {staff.staffname}
-              {JSON.stringify(staff)}
-            </option>
-          ))}
-        </select>
-      </label>
+      <div className="flex h-screen items-center justify-center rounded-lg">
+        <CameraJsQR2 />
+      </div>
       <div>
-        <Link href="/qr">次へ</Link>
+      <Link href="/admin">管理者画面</Link>
       </div>
     </div>
   );
