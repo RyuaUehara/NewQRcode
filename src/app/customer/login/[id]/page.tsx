@@ -6,6 +6,7 @@ import OneCustomer from "@/app/componets/OneCustomer";
 import ViewHelpers from "@/app/componets/ViewHelpers";
 import { HelperType } from "@/app/api/helper/type";
 import { visitsType } from "@/app/api/inout/type";
+import css from "styled-jsx/css";
 
 export default function Home() {
   const [customerName, setCustomer] = useState<CustomerType | null>(null);
@@ -65,44 +66,98 @@ export default function Home() {
     //setSelectedHelper(id);
   };
 
+  const handlesubmitout = async () => {
+    const response = await fetch("/api/inout", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        helperID,
+        customerName,
+      }),
+    });
+    console.log(helperID, customerName);
+  };
+
   return (
-    <div>
-      <div>
-        <div className='w-1/2 flex flex-col'>
-          <div className='flex justify-between mb-5'>
-            <p className='text-center font-bold text-3xl'>ヘルパー入退出画面</p>
-          </div>
-          {customerName && (
+    <div className='flex justify-center items-center h-screen'>
+      <div className='border p-8 max-w-xl rounded-lg'>
+        <div className='w-full'>
+          {/* <div className='flex flex-col items-center'>
+            {customerName && (
+              <div className='flex flex-col items-center justify-start'>
+                <p className='mb-6 text-xl '>
+                  訪問先：{JSON.stringify(customerName)} 様 宅
+                </p>
+              </div>
+            )}
+          </div> */}
+
+          <div className='w-full flex flex-col items-center max-w-sm mx-auto'>
             <div className='flex flex-col items-center justify-start'>
-              <p>訪問先：{JSON.stringify(customerName)} 様 宅</p>
-            </div>
-          )}
-        </div>
-      </div>
-      <div>
-        <div className='w-1/2 flex flex-col'>
-          <div className='flex flex-col items-center justify-start'>
-            <label
-              className='text-center font-bold text-3xl'
-              htmlFor='helperID'
-            >
-              ヘルパー名を選択してください
-              <select onChange={handleSelectHelper} value={helperID || ""}>
-                <option value=''>Select a helper</option>
-                {helpers.map((helper) => (
-                  <option key={helper.id} value={helper.helpername}>
-                    {helper.helpername}
-                    {JSON.stringify(helper)}
+              <label
+                className='text-center  block mb-2 text-sm font-medium text-gray-900 dark:text-black'
+                htmlFor='helperID'
+              >
+                {" "}
+                {/* Added mb-4 for bottom margin */}
+                <select
+                  className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                  onChange={handleSelectHelper}
+                  value={helperID || ""}
+                  style={{
+                    width: "100%",
+                    maxWidth: "400px",
+                    fontSize: "14px",
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                >
+                  <option key={helperID} style={{ width: "100%" }}>
+                    ID:{helperID} ヘルパー名:{helperName}
                   </option>
-                ))}
-              </select>
-            </label>
+                  {helpers.map((helper) => (
+                    <option
+                      key={helper.id}
+                      value={helper.helpername}
+                      style={{ width: "100%" }}
+                    >
+                      {helper.helpername}
+                      {JSON.stringify(helper)}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
           </div>
+          {/* <div className='flex justify-center mb-8'>
+            <button
+              onClick={handlesubmitin}
+              className='focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800'
+            >
+              入出
+            </button>
+            <button
+              onClick={handlesubmitout}
+              className='focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900'
+            >
+              退出
+            </button>
+          </div> */}
+          <hr />
         </div>
-      </div>
-      <div>
-        <button onClick={handlesubmitin}>入出</button>
-        <button>退出</button>
+        <div>
+          {/* <div className='hover:text-blue-500'>Start time: </div>{" "} */}
+          {/* Added hover effect */}
+          <hr />
+          {/* <div className='hover:text-blue-500'>breaktime: </div>{" "} */}
+          {/* Added hover effect */}
+          <hr />
+          {/* <div className='hover:text-blue-500'>endtime: </div>{" "} */}
+          {/* Added hover effect */}
+        </div>
       </div>
     </div>
   );

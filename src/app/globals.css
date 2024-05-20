@@ -2,3 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+/* In your CSS file */
+.select-dropdown {
+  width: 100%; /* Make the select dropdown full-width */
+}
+
+.select-option {
+  font-size: 14px; /* Adjust the font size as needed */
+  white-space: nowrap; /* Prevent text wrapping */
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Show ellipsis for truncated text */
+}
