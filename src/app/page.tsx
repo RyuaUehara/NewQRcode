@@ -41,7 +41,7 @@ export default function Home() {
         </select>
       </label>
       <div>
-        <Link href="/login">確定</Link>
+        <Link href="/qr">次へ</Link>
       </div>
     </div>
   );
