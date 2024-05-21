@@ -5,7 +5,6 @@ import React, { useEffect, useState } from "react";
 import CamerajsQR2 from "@/app/componets/CameraJsQR2";
 import { useStaff } from "@/lib/utils/StaffProvider";
 
-
 const MainPage = () => {
     const [state, setState] = useState(0);
 
@@ -13,6 +12,8 @@ const MainPage = () => {
     useEffect(() => {
         console.log("staff", staff);
     })
+
+    const { customer } = useStaff();
 
     return (
         <div className="container m-auto">
@@ -45,7 +46,7 @@ const MainPage = () => {
                 }
                 {state === 2 &&
                     <div>
-                        <p>利用者名：</p>
+                        <p>利用者名：{customer}</p>
                     </div>
                 }
             </div>

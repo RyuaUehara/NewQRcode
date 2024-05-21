@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import jsQR from "jsqr-es6";
+import { useStaff } from "@/lib/utils/StaffProvider";
 
 const CameraJsQR2 = () => {
   const videoRef = useRef(null);
@@ -7,6 +8,7 @@ const CameraJsQR2 = () => {
   const [qrCodeText, setQrCodeText] = useState("");
   const [qrCodeJson, setQrCodeJson] = useState(null);
   const [error, setError] = useState(null);
+  const {setCustomer} = useStaff();
 
   const resetQrCodeText = () => {
     setQrCodeText("");
@@ -57,8 +59,10 @@ const CameraJsQR2 = () => {
         if (code) {
           try {
             const jsonData = JSON.parse(code.data);
+            console.log(jsonData.name);
             setQrCodeText(code.data);
-            setQrCodeJson(jsonData);
+            setQrCodeJson(jsonData.name);
+            setCustomer(jsonData.name);
             setError(null);
           } catch (e) {
             console.error("Failed to parse JSON:", e);
