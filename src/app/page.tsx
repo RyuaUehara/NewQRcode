@@ -18,9 +18,7 @@ export default function Home() {
       const data = await response.json();
       setstaffs(data);
     };
-    if (staff) {
-      router.push("/qr");
-    }
+
     console.log("staff", staff);
     fetchstaffs();
   }, []);
