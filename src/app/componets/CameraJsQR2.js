@@ -1,17 +1,24 @@
 import React, { useRef, useEffect, useState } from "react";
 import jsQR from "jsqr-es6";
+import Link from "next/link";
 
 
 const CameraJsQR2 = () => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const [qrCodeText, setQrCodeText] = useState("");
+  const [next, setnext] = useState(2);
 
   const resetQrCodeText = () => {
     setQrCodeText("");
     // ページをリロードする
     window.location.reload();
   };
+
+  const nextpage = () =>{
+    
+  };
+
 
   useEffect(() => {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -85,12 +92,27 @@ const CameraJsQR2 = () => {
         <video ref={videoRef} width="320" height="240" autoPlay />
       </div>
       <p className="p-5 text-center w-full pt-5 h-20">{qrCodeText}</p>
+<<<<<<< HEAD
       <button
         onClick={resetQrCodeText}
         className="bg-red-900 text-white px-2 py-1 mb-2"
       >
         更新
       </button>
+=======
+
+      <div className="w-full flex justify-center  ">
+        <button
+          onClick={resetQrCodeText}
+          className="bg-pink-400 text-white font-semibold text-5xl  px-10 py-4 mb-10 rounded-3xl"
+        >
+          更新
+        </button>
+        <div>
+          <button onClick={nextpage}>次へ</button>
+        </div>
+      </div>
+>>>>>>> 988627abf5f0e5dad25e193e652c715c2dc808e1
     </div>
   );
 };
