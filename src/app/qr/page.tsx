@@ -11,7 +11,6 @@ const MainPage = () => {
     const [state, setState] = useState(0);
     //const [staffname, setStaffname] = useState<staffType[]>([]);
     //const [customername, setCustomer] = useState<string | null>(null);
-    const [in_time, setIn_time] = useState<visitType[]>([]);
     const [out_time, setOut_time] = useState<visitType[]>([]);
 
     const { staffid, staff } = useStaff();
