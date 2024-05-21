@@ -21,7 +21,7 @@ const CameraJsQR2 = () => {
   useEffect(() => {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices
-        .getUserMedia({ video: { facingMode: 'environment' } })
+        .getUserMedia({ video: { facingMode: 'environment' } }) // 外部カメラを起動
         .then((stream) => {
           videoRef.current.srcObject = stream;
           videoRef.current.play();
