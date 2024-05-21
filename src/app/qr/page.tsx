@@ -35,7 +35,18 @@ const MainPage = () => {
     };
 
     const handlesubmitout = async () => {
-
+        const response = await fetch("/api/inout", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                staffid,
+                customer,
+                out_time,
+            })
+        });
+        console.log(staffid, customer, out_time);
     };
 
     const { customer } = useStaff();
