@@ -71,7 +71,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Footer */}
+      {/* Footer of occ*/}
       <footer className='bg-gray-300 text-black py-4 text-center mt-auto'>
         <p className='text-2xl font-bold'>
           ヘルパーステーション{" "}
