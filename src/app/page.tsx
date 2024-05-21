@@ -1,45 +1,45 @@
 "use client";
- 
+
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { staffType } from "@/app/api/staff/type";
 import { useEffect, useState } from "react";
 import { useStaff } from "@/lib/utils/StaffProvider";
- 
+
 export default function Home() {
-  const [staffid, setstaffid] = useState<number | null>(null);
   const [staffs, setstaffs] = useState<staffType[]>([]);
   const router = useRouter();
+  const { staffid, setStaffid } = useStaff();
   const { staff, setStaff } = useStaff();
- 
+
   useEffect(() => {
     const fetchstaffs = async () => {
       const response = await fetch("/api/staff");
       const data = await response.json();
       setstaffs(data);
     };
- 
-    console.log("staff", staff);
+
+    console.log("staffid", staffid, "staff", staff);
     fetchstaffs();
   }, []);
- 
+
   const handleselectstaff = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedstaff = staffs.find(
       (staff) => staff.staffname === event.target.value
     );
     if (selectedstaff) {
-      setstaffid(selectedstaff.id);
+      setStaffid(selectedstaff.id);
       setStaff(selectedstaff.staffname);
     }
   };
- 
+
   return (
     <div className='w-screen flex flex-col min-h-screen'>
       {/* Header */}
       <header className='bg-pink-300 text-white py-4 text-center mb-4'>
         <h1 className='text-3xl font-bold'>訪問介護時間管理</h1>
       </header>
- 
+
       {/* Content */}
       <div className='flex-grow py-40 px-4 text-center'>
         <div className='mb-4'>
@@ -52,7 +52,7 @@ export default function Home() {
               style={{ width: "150px" }} // Adjust the width as needed
             >
               <option value='' disabled>
-                ヘルパー名：    
+                ヘルパー名：
               </option>
               {staffs.map((staff) => (
                 <option
@@ -75,7 +75,7 @@ export default function Home() {
           </Link>
         </div>
       </div>
- 
+
       {/* Footer */}
       <footer className='bg-gray-300 text-black py-4 text-center mt-auto'>
         <p className='text-2xl font-bold'>
@@ -86,4 +86,3 @@ export default function Home() {
     </div>
   );
 }
- 

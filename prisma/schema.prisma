@@ -15,7 +15,7 @@ model staff {
 
 model visit {
   id        Int      @id @default(autoincrement())
-  staffid String?
+  staffid Int?
   staffname String?
   customername String?
   in_time DateTime?

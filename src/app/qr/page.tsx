@@ -4,33 +4,32 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import CamerajsQR2 from "@/app/componets/CameraJsQR2";
 import { useStaff } from "@/lib/utils/StaffProvider";
-import { staffType } from "../api/staff/type";
+//import { staffType } from "../api/staff/type";
 import { visitType } from "../api/inout/type";
 
 const MainPage = () => {
     const [state, setState] = useState(0);
-    const [staffid, setStaffid] = useState<staffType[]>([]);
-    const [staffname, setStaffname] = useState<staffType[]>([]);
-    const [customername, setCustomer] = useState<string | null>(null);
+    //const [staffname, setStaffname] = useState<staffType[]>([]);
+    //const [customername, setCustomer] = useState<string | null>(null);
     const [in_time, setIn_time] = useState<visitType[]>([]);
     const [out_time, setOut_time] = useState<visitType[]>([]);
 
-    const { staff } = useStaff();
+    const { staffid, staff } = useStaff();
     useEffect(() => {
-        console.log("staff", staff);
-        
+        console.log("staffid", staffid, "staff", staff);
+
     })
 
     const handlesubmitin = async () => {
-        const response = await fetch("/api/inout",{
-            method:"POST",
+        const response = await fetch("/api/inout", {
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 staffid,
-                staffname,
-                customername,
+                staff,
+                customer,
             }),
         });
     };
