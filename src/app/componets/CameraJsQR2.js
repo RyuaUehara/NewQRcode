@@ -99,10 +99,9 @@ const CameraJsQR2 = () => {
           autoPlay
         />
       </div>
-      <p className="p-5 text-center w-full pt-5 h-20">{qrCodeText}</p>
       {qrCodeJson && (
         <pre className="p-5 text-center w-full pt-5 h-20">
-          {JSON.stringify(qrCodeJson, null, 2)}
+         利用者名 {JSON.stringify(qrCodeJson, null, 2)} 様
         </pre>
       )}
       {error && (

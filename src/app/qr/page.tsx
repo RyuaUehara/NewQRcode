@@ -4,14 +4,40 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import CamerajsQR2 from "@/app/componets/CameraJsQR2";
 import { useStaff } from "@/lib/utils/StaffProvider";
+import { staffType } from "../api/staff/type";
+import { visitType } from "../api/inout/type";
 
 const MainPage = () => {
     const [state, setState] = useState(0);
+    const [staffid, setStaffid] = useState<staffType[]>([]);
+    const [staffname, setStaffname] = useState<staffType[]>([]);
+    const [customername, setCustomer] = useState<string | null>(null);
+    const [in_time, setIn_time] = useState<visitType[]>([]);
+    const [out_time, setOut_time] = useState<visitType[]>([]);
 
     const { staff } = useStaff();
     useEffect(() => {
         console.log("staff", staff);
+        
     })
+
+    const handlesubmitin = async () => {
+        const response = await fetch("/api/inout",{
+            method:"POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                staffid,
+                staffname,
+                customername,
+            }),
+        });
+    };
+
+    const handlesubmitout = async () => {
+
+    };
 
     const { customer } = useStaff();
 
@@ -47,6 +73,8 @@ const MainPage = () => {
                 {state === 2 &&
                     <div>
                         <p>利用者名：{customer}</p>
+                        <button onClick={handlesubmitin}>入室</button>
+                        <button onClick={handlesubmitout}>退室</button>
                     </div>
                 }
             </div>
