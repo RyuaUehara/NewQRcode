@@ -37,6 +37,11 @@ const MainPage = () => {
                     </div>
                 }
                 {state === 1 && <CamerajsQR2 />}
+                {state === 1 &&
+                    <div>
+                        <button onClick={() => setState(2)}>次へ</button>
+                    </div>
+                }
                 {state === 2 && 2}
             </div>
         </div>

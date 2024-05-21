@@ -19,7 +19,7 @@ export default function Home() {
       setstaffs(data);
     };
     if(staff) {
-      router.push('/qr');
+      router.push('/');
     }
     console.log("staff",staff);
     fetchstaffs();
