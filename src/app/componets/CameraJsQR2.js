@@ -93,8 +93,8 @@ const CameraJsQR2 = () => {
       <div>
         <video
           ref={videoRef}
-          width="320"
-          height="240"
+          width="100"
+          height="100"
           className="rounded-2xl border-double border-4"
           autoPlay
         />
