@@ -1,16 +1,23 @@
 import React, { useRef, useEffect, useState } from "react";
 import jsQR from "jsqr-es6";
+import Link from "next/link";
 
 const CameraJsQR2 = () => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const [qrCodeText, setQrCodeText] = useState("");
+  const [next, setnext] = useState(2);
 
   const resetQrCodeText = () => {
     setQrCodeText("");
     // ページをリロードする
     window.location.reload();
   };
+
+  const nextpage = () =>{
+    
+  };
+
 
   useEffect(() => {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -102,6 +109,9 @@ const CameraJsQR2 = () => {
         >
           更新
         </button>
+        <div>
+          <button onClick={nextpage}>次へ</button>
+        </div>
       </div>
     </div>
   );
