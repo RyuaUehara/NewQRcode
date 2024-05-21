@@ -3,11 +3,21 @@
 import Link from "next/link";
 import { staffType } from "@/app/api/staff/type";
 import { useEffect, useState } from "react";
+<<<<<<< HEAD
 
 export default function Home() {
   const [staffid, setstaffid] = useState<number | null>(null);
   const [staffname, setstaffname] = useState<string | null>(null);
   const [staffs, setstaffs] = useState<staffType[]>([]);
+=======
+import { useStaff } from "@/lib/utils/StaffProvider"
+
+export default function Home() {
+  const [staffid, setstaffid] = useState<number | null>(null);
+  const [staffs, setstaffs] = useState<staffType[]>([]);
+  const router = useRouter();
+  const { staff,setStaff } = useStaff();
+>>>>>>> 988627abf5f0e5dad25e193e652c715c2dc808e1
 
   useEffect(() => {
     const fetchstaffs = async () => {
@@ -15,6 +25,13 @@ export default function Home() {
       const data = await response.json();
       setstaffs(data);
     };
+<<<<<<< HEAD
+=======
+    if(staff) {
+      router.push('/qr');
+    }
+    console.log("staff",staff);
+>>>>>>> 988627abf5f0e5dad25e193e652c715c2dc808e1
     fetchstaffs();
   }, []);
 
@@ -24,10 +41,11 @@ export default function Home() {
     );
     if (selectedstaff) {
       setstaffid(selectedstaff.id);
-      setstaffname(selectedstaff.staffname);
+      setStaff(selectedstaff.staffname);
     }
   };
   return (
+<<<<<<< HEAD
     <div className='w-screen flex flex-col min-h-screen'>
       {/* Header */}
       <header className='bg-pink-300 text-white py-4 text-center mb-4'>
@@ -69,6 +87,22 @@ export default function Home() {
             次へ
           </Link>
         </div>
+=======
+    <div>
+      <div>ヘルパー名を選んでください</div>
+      <label className='text-center font-bold text-3xl' htmlFor='staffid'>
+        <select onChange={handleselectstaff} value={staff || ""}>
+          <option value="" disabled>ヘルパーを選択してください</option>
+          {staffs.map((staff) => (
+            <option key={staff.id} value={staff.staffname}>
+              {staff.staffname}
+            </option>
+          ))}
+        </select>
+      </label>
+      <div>
+        <Link href="/qr">次へ</Link>
+>>>>>>> 988627abf5f0e5dad25e193e652c715c2dc808e1
       </div>
 
       {/* Footer of occ*/}
