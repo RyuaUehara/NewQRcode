@@ -1,14 +1,16 @@
 "use client";
 
 import Link from "next/link"
+import { useRouter } from "next/navigation";
 import { staffType } from "@/app/api/staff/type";
 import { useEffect, useState } from "react";
+import { usestaffname } from "@/lib/utils/staffProvider";
 
 export default function Home() {
   const [staffid, setstaffid] = useState<number | null>(null);
-  const [staffname, setstaffname] = useState<string | null>(null);
+  const { staffname, setstaffname } = usestaffname();
   const [staffs, setstaffs] = useState<staffType[]>([]);
-
+  const router = useRouter();
 
   useEffect(() => {
     const fetchstaffs = async () => {
@@ -16,6 +18,10 @@ export default function Home() {
       const data = await response.json();
       setstaffs(data);
     };
+    if(staffname) {
+      router.push('/main');
+    }
+    console.log("staffname",staffname);
     fetchstaffs();
   }, []);
 
@@ -26,6 +32,7 @@ export default function Home() {
       setstaffname(selectedstaff.staffname);
     }
   }
+
 
   return (
     <div>
