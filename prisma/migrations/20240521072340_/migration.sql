@@ -10,7 +10,7 @@ CREATE TABLE "staff" (
 -- CreateTable
 CREATE TABLE "visit" (
     "id" SERIAL NOT NULL,
-    "staffid" TEXT,
+    "staffid" INTEGER,
     "staffname" TEXT,
     "customername" TEXT,
     "in_time" TIMESTAMP(3),
