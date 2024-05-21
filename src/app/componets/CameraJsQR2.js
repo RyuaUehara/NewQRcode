@@ -8,7 +8,7 @@ const CameraJsQR2 = () => {
   const [qrCodeText, setQrCodeText] = useState("");
   const [qrCodeJson, setQrCodeJson] = useState(null);
   const [error, setError] = useState(null);
-  const {setCustomer} = useStaff();
+  const { setCustomer } = useStaff();
 
   const resetQrCodeText = () => {
     setQrCodeText("");
@@ -21,7 +21,7 @@ const CameraJsQR2 = () => {
   useEffect(() => {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices
-        .getUserMedia({ video: true })
+        .getUserMedia({ video: { facingMode: 'environment' } })
         .then((stream) => {
           videoRef.current.srcObject = stream;
           videoRef.current.play();
