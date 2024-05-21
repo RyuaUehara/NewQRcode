@@ -52,7 +52,7 @@ export default function Home() {
               style={{ width: "150px" }} // Adjust the width as needed
             >
               <option value='' disabled>
-                ヘルパー名：
+                ヘルパー名：{staff}
               </option>
               {staffs.map((staff) => (
                 <option
