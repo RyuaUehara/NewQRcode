@@ -1,15 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CamerajsQR2 from "@/app/componets/CameraJsQR2";
-import { json } from "stream/consumers";
-import { staffType } from "@/app/api/staff/type";
-import { useEffect } from "react";
-
+import { useStaff } from "@/lib/utils/StaffProvider";
 
 const MainPage = () => {
     const [state, setState] = useState(0);
+
+    const { staff } = useStaff();
+    useEffect(() => {
+        console.log("staff", staff);
+    })
 
     return (
         <div className="container m-auto">
@@ -18,7 +20,7 @@ const MainPage = () => {
                     <h1 className="text-5xl font-bold">Main Page</h1>
                     <div>
                         <div className="text-white">
-                            <p>ヘルパー名：</p>
+                            <p>ヘルパー名：{staff}</p>
                         </div>
                     </div>
                     <Link href="/">Back to Home</Link>

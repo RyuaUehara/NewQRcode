@@ -4,13 +4,13 @@ import Link from "next/link"
 import { useRouter } from "next/navigation";
 import { staffType } from "@/app/api/staff/type";
 import { useEffect, useState } from "react";
-import { usestaffname } from "@/lib/utils/staffProvider";
+import { useStaff } from "@/lib/utils/StaffProvider"
 
 export default function Home() {
   const [staffid, setstaffid] = useState<number | null>(null);
-  const { staffname, setstaffname } = usestaffname();
   const [staffs, setstaffs] = useState<staffType[]>([]);
   const router = useRouter();
+  const { staff,setStaff } = useStaff();
 
   useEffect(() => {
     const fetchstaffs = async () => {
@@ -18,10 +18,10 @@ export default function Home() {
       const data = await response.json();
       setstaffs(data);
     };
-    if(staffname) {
-      router.push('/main');
+    if(staff) {
+      router.push('/qr');
     }
-    console.log("staffname",staffname);
+    console.log("staff",staff);
     fetchstaffs();
   }, []);
 
@@ -29,7 +29,7 @@ export default function Home() {
     const selectedstaff = staffs.find(staff => staff.staffname === event.target.value);
     if (selectedstaff) {
       setstaffid(selectedstaff.id);
-      setstaffname(selectedstaff.staffname);
+      setStaff(selectedstaff.staffname);
     }
   }
 
@@ -38,7 +38,7 @@ export default function Home() {
     <div>
       <div>ヘルパー名を選んでください</div>
       <label className='text-center font-bold text-3xl' htmlFor='staffid'>
-        <select onChange={handleselectstaff} value={staffname || ""}>
+        <select onChange={handleselectstaff} value={staff || ""}>
           <option value="" disabled>ヘルパーを選択してください</option>
           {staffs.map((staff) => (
             <option key={staff.id} value={staff.staffname}>
