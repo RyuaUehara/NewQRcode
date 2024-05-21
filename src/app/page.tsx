@@ -69,7 +69,7 @@ export default function Home() {
         <div className='mt-20'>
           <Link
             href='/qr'
-            className='bg-blue-400 text-white font-bold px-8 py-6 rounded-lg mr-2 hover:bg-blue-800 '
+            className='bg-blue-400 text-white font-bold px-6 py-4 rounded-lg mr-2 hover:bg-blue-800 '
           >
             次へ
           </Link>
