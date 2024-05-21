@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import CamerajsQR2 from "@/app/componets/CameraJsQR2";
 import { useStaff } from "@/lib/utils/StaffProvider";
 
+
 const MainPage = () => {
     const [state, setState] = useState(0);
 
@@ -42,7 +43,11 @@ const MainPage = () => {
                         <button onClick={() => setState(2)}>次へ</button>
                     </div>
                 }
-                {state === 2 && 2}
+                {state === 2 &&
+                    <div>
+                        <p>利用者名：</p>
+                    </div>
+                }
             </div>
         </div>
     );
