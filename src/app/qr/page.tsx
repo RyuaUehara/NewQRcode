@@ -12,12 +12,21 @@ const MainPage = () => {
     //const [staffname, setStaffname] = useState<staffType[]>([]);
     //const [customername, setCustomer] = useState<string | null>(null);
     const [out_time, setOut_time] = useState<visitType[]>([]);
+    const [currentDate, setCurrentDate] = useState("");
 
     const { staffid, staff } = useStaff();
     useEffect(() => {
         console.log("staffid", staffid, "staff", staff);
-
+        setCurrentDate(getFormattedDate());
     })
+
+    const getFormattedDate = () => {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = `${today.getMonth() + 1}`.padStart(2, "0");
+        const day = `${today.getDate()}`.padStart(2, "0");
+        return `${year}-${month}-${day}`;
+    }
 
     const handlesubmitin = async () => {
         const response = await fetch("/api/inout", {
@@ -58,6 +67,9 @@ const MainPage = () => {
                     <div>
                         <div className="text-white">
                             <p>ヘルパー名：{staff}</p>
+                        </div>
+                        <div>
+                            <p>日付：{currentDate}</p>
                         </div>
                     </div>
                     <Link href="/">Back to Home</Link>
