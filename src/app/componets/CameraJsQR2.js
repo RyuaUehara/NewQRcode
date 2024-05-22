@@ -1,17 +1,19 @@
 import React, { useRef, useEffect, useState } from "react";
 import jsQR from "jsqr-es6";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useStaff } from "@/lib/utils/StaffProvider";
 
 const CameraJsQR2 = () => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const [qrCodeText, setQrCodeText] = useState("");
-  const [state, setState] = useState(0);
-  const router = useRouter();
+  const [qrCodeJson, setQrCodeJson] = useState(null);
+  const [error, setError] = useState(null);
+  const { setCustomer } = useStaff();
 
   const resetQrCodeText = () => {
     setQrCodeText("");
+    setQrCodeJson(null);
+    setError(null);
     // ページをリロードする
     window.location.reload();
   };
@@ -19,18 +21,19 @@ const CameraJsQR2 = () => {
   useEffect(() => {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices
-        .getUserMedia({ video: true })
+        .getUserMedia({ video: { facingMode: "environment" } }) // 外部カメラを起動
         .then((stream) => {
           videoRef.current.srcObject = stream;
           videoRef.current.play();
           scanQRCode();
-          router.push("/qr");
         })
         .catch((error) => {
           console.error("Error accessing the camera: ", error);
+          setError("カメラのアクセスに失敗しました");
         });
     } else {
       console.error("getUserMedia not supported");
+      setError("カメラがサポートされていません");
     }
   }, []);
 
@@ -52,32 +55,33 @@ const CameraJsQR2 = () => {
         );
         const code = jsQR(imageData.data, imageData.width, imageData.height, {
           inversionAttempts: "dontInvert",
-          // UTF-8エンコーディングを指定する
-          decodeToText: true,
         });
         if (code) {
-          // QRコードのデータを設定する
-          setQrCodeText(code.data);
-          // URL の場合はページ遷移を行う
-          if (isURL(code.data)) {
-            window.location.href = code.data;
+          try {
+            const jsonData = JSON.parse(code.data);
+            console.log(jsonData.name);
+            setQrCodeText(code.data);
+            setQrCodeJson(jsonData.name);
+            setCustomer(jsonData.name);
+            setError(null);
+          } catch (e) {
+            console.error("Failed to parse JSON:", e);
+            setQrCodeText(code.data);
+            setError("QRコードのデータを解析できませんでした");
+            setQrCodeJson(null);
           }
         } else {
           setQrCodeText("");
+          setQrCodeJson(null);
           requestAnimationFrame(scan);
         }
       } else {
         setQrCodeText("");
+        setQrCodeJson(null);
         requestAnimationFrame(scan);
       }
     };
     scan();
-  };
-
-  // URL の正規表現を使用して判定する関数
-  const isURL = (text) => {
-    const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
-    return urlPattern.test(text);
   };
 
   return (
@@ -101,12 +105,13 @@ const CameraJsQR2 = () => {
       <p className='p-5 text-center w-full pt-5 h-20'>{qrCodeText}</p>
 
       <div className='w-full flex justify-center  '>
-        {/* <button
+        <button
           onClick={resetQrCodeText}
-          className="bg-pink-400 text-white font-semibold text-5xl  px-10 py-4 mb-10 rounded-3xl"
+          className='bg-pink-400 text-white font-semibold text-5xl px-10 py-4 mb-10 rounded-3xl'
         >
           更新
-        </button> */}
+        </button>{" "}
+        */}
       </div>
     </div>
   );
