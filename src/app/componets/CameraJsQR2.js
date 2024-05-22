@@ -14,14 +14,13 @@ const CameraJsQR2 = () => {
     setQrCodeText("");
     setQrCodeJson(null);
     setError(null);
-    // ページをリロードする
     window.location.reload();
   };
 
   useEffect(() => {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices
-        .getUserMedia({ video: { facingMode: 'environment' } }) // 外部カメラを起動
+        .getUserMedia({ video: { facingMode: 'environment' } })
         .then((stream) => {
           videoRef.current.srcObject = stream;
           videoRef.current.play();
@@ -85,17 +84,13 @@ const CameraJsQR2 = () => {
   };
 
   return (
-    <div className="">
+    <div className="flex flex-col items-center">
       <p className="text-center w-full font-bold text-4xl pb-2">QRコード</p>
       <p className="text-center w-full font-bold text-4xl pb-2">読み込んでください</p>
-      <video ref={videoRef} style={{ display: "none" }} />
-      <canvas ref={canvasRef} style={{ display: "none" }} />
-      <div>
+      <div className="relative w-full max-w-md">
         <video
           ref={videoRef}
-          width="320"
-          height="240"
-          className="rounded-2xl border-double border-4"
+          className="rounded-2xl border-double border-4 w-full h-auto"
           autoPlay
         />
       </div>
@@ -115,6 +110,7 @@ const CameraJsQR2 = () => {
           更新
         </button>
       </div>
+      <canvas ref={canvasRef} style={{ display: "none" }} />
     </div>
   );
 };
