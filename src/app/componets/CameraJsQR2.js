@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import jsQR from "jsqr-es6";
 import { useStaff } from "@/lib/utils/StaffProvider";
-
+ 
 const CameraJsQR2 = () => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
@@ -9,22 +9,23 @@ const CameraJsQR2 = () => {
   const [qrCodeJson, setQrCodeJson] = useState(null);
   const [error, setError] = useState(null);
   const { setCustomer } = useStaff();
-
+ 
   const resetQrCodeText = () => {
     setQrCodeText("");
     setQrCodeJson(null);
     setError(null);
     window.location.reload();
   };
-
+ 
   useEffect(() => {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices
-        .getUserMedia({ video: { facingMode: 'environment' } })
+        .getUserMedia({ video: { facingMode: "environment" } })
         .then((stream) => {
           videoRef.current.srcObject = stream;
           videoRef.current.play();
-          scanQRCode();
+          const scanInterval = setInterval(scanQRCode, 500);
+          return () => clearInterval(scanInterval); // Cleanup on unmount
         })
         .catch((error) => {
           console.error("Error accessing the camera: ", error);
@@ -35,84 +36,65 @@ const CameraJsQR2 = () => {
       setError("カメラがサポートされていません");
     }
   }, []);
-
+ 
   const scanQRCode = () => {
     const canvas = canvasRef.current;
     const video = videoRef.current;
     const context = canvas.getContext("2d");
-
-    const scan = () => {
-      if (video.readyState === video.HAVE_ENOUGH_DATA) {
-        canvas.height = video.videoHeight;
-        canvas.width = video.videoWidth;
-        context.drawImage(video, 0, 0, canvas.width, canvas.height);
-        const imageData = context.getImageData(
-          0,
-          0,
-          canvas.width,
-          canvas.height
-        );
-        const code = jsQR(imageData.data, imageData.width, imageData.height, {
-          inversionAttempts: "dontInvert",
-        });
-        if (code) {
-          try {
-            const jsonData = JSON.parse(code.data);
-            console.log(jsonData.name);
-            setQrCodeText(code.data);
-            setQrCodeJson(jsonData.name);
-            setCustomer(jsonData.name);
-            setError(null);
-          } catch (e) {
-            console.error("Failed to parse JSON:", e);
-            setQrCodeText(code.data);
-            setError("QRコードのデータを解析できませんでした");
-            setQrCodeJson(null);
-          }
-        } else {
-          setQrCodeText("");
+ 
+    if (video.readyState === video.HAVE_ENOUGH_DATA) {
+      canvas.height = video.videoHeight;
+      canvas.width = video.videoWidth;
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+      const code = jsQR(imageData.data, imageData.width, imageData.height, {
+        inversionAttempts: "dontInvert",
+      });
+      if (code) {
+        try {
+          const jsonData = JSON.parse(code.data);
+          console.log(jsonData.name);
+          setQrCodeText(code.data);
+          setQrCodeJson(jsonData.name);
+          setCustomer(jsonData.name);
+          setError(null);
+        } catch (e) {
+          console.error("Failed to parse JSON:", e);
+          setQrCodeText(code.data);
+          setError("QRコードのデータを解析できませんでした");
           setQrCodeJson(null);
-          requestAnimationFrame(scan);
         }
       } else {
         setQrCodeText("");
         setQrCodeJson(null);
-        requestAnimationFrame(scan);
       }
-    };
-    scan();
+    }
   };
-
+ 
   return (
-    <div className="flex flex-col items-center">
-      <p className="text-center w-full font-bold text-4xl pb-2">QRコード</p>
-      <p className="text-center w-full font-bold text-4xl pb-2">読み込んでください</p>
-      <div className="relative w-full max-w-md">
-        <video
-          ref={videoRef}
-          className="rounded-2xl border-double border-4 w-full h-auto"
-          autoPlay
-        />
+    <div className='max-w-full px-4'>
+      <div className='mt-0'>
+        <p className='text-center font-bold text-3xl'>QRコード</p>
+        <p className='text-center font-bold text-3xl'>読み込んでください</p>
       </div>
-      {qrCodeJson && (
-        <pre className="p-5 text-center w-full pt-5 h-20">
-         利用者名 {JSON.stringify(qrCodeJson, null, 2)} 様
-        </pre>
-      )}
-      {error && (
-        <p className="p-5 text-center w-full pt-5 h-20 text-red-500">{error}</p>
-      )}
-      <div className="w-full flex justify-center">
-        <button
-          onClick={resetQrCodeText}
-          className="bg-pink-400 text-white font-semibold text-5xl px-10 py-4 mb-10 rounded-3xl"
-        >
-          更新
-        </button>
-      </div>
+ 
+      <video ref={videoRef} style={{ display: "none" }} />
       <canvas ref={canvasRef} style={{ display: "none" }} />
+ 
+      {/* Center the video element horizontally and make it responsive */}
+      <div className='flex justify-center'>
+        <div className='w-full sm:w-2/3 md:w-1/2 lg:w-1/3'>
+          <video
+            ref={videoRef}
+            className='rounded-2xl border-double border-4 w-full'
+            autoPlay
+          />
+        </div>
+      </div>
+ 
+      <p className='p-5 text-center w-full pt-5 h-20'>{qrCodeText}</p>
     </div>
   );
 };
-
+ 
 export default CameraJsQR2;
