@@ -64,6 +64,7 @@ const MainPage = () => {
         <div className='bg-pink-300 text-white py-4 text-center mb-4 w-full items-center'>
           <div>
             <h1 className='text-5xl font-bold text-center'>メインページ</h1>
+            <Link href={"/"}>最初に戻る</Link>
           </div>
           <div>
             <div>
@@ -73,7 +74,7 @@ const MainPage = () => {
         </div>
         {state === 0 && (
           <div className='bg-white w-full h-screen flex flex-col justify-center items-center content-center font-bold'>
-            <div className='text-black text-2xl  '>
+            <div className='text-black text-2xl'>
               <p>ヘルパー名：{staff}</p>
             </div>
 
