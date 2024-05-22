@@ -24,8 +24,7 @@ const CameraJsQR2 = () => {
         .then((stream) => {
           videoRef.current.srcObject = stream;
           videoRef.current.play();
-          const scanInterval = setInterval(scanQRCode, 500);
-          return () => clearInterval(scanInterval); // Cleanup on unmount
+          scanQRCode();
         })
         .catch((error) => {
           console.error("Error accessing the camera: ", error);
@@ -42,38 +41,46 @@ const CameraJsQR2 = () => {
     const video = videoRef.current;
     const context = canvas.getContext("2d");
 
-    if (video.readyState === video.HAVE_ENOUGH_DATA) {
-      canvas.height = video.videoHeight;
-      canvas.width = video.videoWidth;
-      context.drawImage(video, 0, 0, canvas.width, canvas.height);
-      const imageData = context.getImageData(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-      );
-      const code = jsQR(imageData.data, imageData.width, imageData.height, {
-        inversionAttempts: "dontInvert",
-      });
-      if (code) {
-        try {
-          const jsonData = JSON.parse(code.data);
-          console.log(jsonData.name);
-          setQrCodeText(code.data);
-          setQrCodeJson(jsonData.name);
-          setCustomer(jsonData.name);
-          setError(null);
-        } catch (e) {
-          console.error("Failed to parse JSON:", e);
-          setQrCodeText(code.data);
-          setError("QRコードのデータを解析できませんでした");
+    const scan = () => {
+      if (video.readyState === video.HAVE_ENOUGH_DATA) {
+        canvas.height = video.videoHeight;
+        canvas.width = video.videoWidth;
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const imageData = context.getImageData(
+          0,
+          0,
+          canvas.width,
+          canvas.height
+        );
+        const code = jsQR(imageData.data, imageData.width, imageData.height, {
+          inversionAttempts: "dontInvert",
+        });
+        if (code) {
+          try {
+            const jsonData = JSON.parse(code.data);
+            console.log(jsonData.name);
+            setQrCodeText(code.data);
+            setQrCodeJson(jsonData.name);
+            setCustomer(jsonData.name);
+            setError(null);
+          } catch (e) {
+            console.error("Failed to parse JSON:", e);
+            setQrCodeText(code.data);
+            setError("QRコードのデータを解析できませんでした");
+            setQrCodeJson(null);
+          }
+        } else {
+          setQrCodeText("");
           setQrCodeJson(null);
+          requestAnimationFrame(scan);
         }
       } else {
         setQrCodeText("");
         setQrCodeJson(null);
+        requestAnimationFrame(scan);
       }
-    }
+    };
+    scan();
   };
 
   return (
