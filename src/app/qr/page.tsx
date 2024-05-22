@@ -66,18 +66,16 @@ const MainPage = () => {
             <h1 className='text-5xl font-bold text-center w-full'>
               メインページ
             </h1>
-            <p>
-              <Link href="/">最初に戻る</Link>
-            </p>
-          </div>
-          <div>
-            <div>
-              <p>日付：{currentDate}</p>
-            </div>
           </div>
         </div>
         {state === 0 && (
           <div className='bg-white w-full h-screen flex flex-col justify-center items-center content-center font-bold'>
+            <p>
+              <Link href="/">最初に戻る</Link>
+            </p>
+            <div>
+              <p>日付：{currentDate}</p>
+            </div>
             <div className='text-black text-2xl  '>
               <p>ヘルパー名：{staff}</p>
             </div>
@@ -119,6 +117,10 @@ const MainPage = () => {
           {state === 2 && (
             <div className='flex justify-start mt-0 h-screen'>
               <div className='flex flex-col items-center'>
+                <div className='text-black text-2xl  '>
+                  <p>ヘルパー名：{staff}</p>
+                </div>
+
                 {/* Display customer name */}
                 <div className='mb-6 text-xl'>
                   <p>利用者名：{customer}</p>
