@@ -1,5 +1,5 @@
 "use client";
- 
+
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import CamerajsQR2 from "@/app/componets/CameraJsQR2";
@@ -7,20 +7,20 @@ import { useStaff } from "@/lib/utils/StaffProvider";
 //import { staffType } from "../api/staff/type";
 import { visitType } from "../api/inout/type";
 import { FaCameraRetro } from "react-icons/fa";
- 
+
 const MainPage = () => {
   const [state, setState] = useState(0);
   //const [staffname, setStaffname] = useState<staffType[]>([]);
   //const [customername, setCustomer] = useState<string | null>(null);
   const [out_time, setOut_time] = useState<visitType[]>([]);
   const [currentDate, setCurrentDate] = useState("");
- 
-  const { staffid, staff } = useStaff();
+
+  const { staffid, staff, customer } = useStaff(); // customerを上に移動
   useEffect(() => {
     console.log("staffid", staffid, "staff", staff);
     setCurrentDate(getFormattedDate());
-  });
- 
+  }, [staffid, staff]); // 依存配列を追加
+
   const getFormattedDate = () => {
     const today = new Date();
     const year = today.getFullYear();
@@ -28,7 +28,7 @@ const MainPage = () => {
     const day = `${today.getDate()}`.padStart(2, "0");
     return `${year}-${month}-${day}`;
   };
- 
+
   const handlesubmitin = async () => {
     const response = await fetch("/api/inout", {
       method: "POST",
@@ -42,7 +42,7 @@ const MainPage = () => {
       }),
     });
   };
- 
+
   const handlesubmitout = async () => {
     const response = await fetch("/api/inout", {
       method: "PUT",
@@ -57,9 +57,7 @@ const MainPage = () => {
     });
     console.log(staffid, customer, out_time);
   };
- 
-  const { customer } = useStaff();
- 
+
   return (
     <div className='container m-auto'>
       <div className='flex flex-col h-screen w-full items-center'>
@@ -68,7 +66,6 @@ const MainPage = () => {
             <h1 className='text-5xl font-bold text-center'>メインページ</h1>
           </div>
           <div>
-           
             <div>
               <p>日付：{currentDate}</p>
             </div>
@@ -79,7 +76,7 @@ const MainPage = () => {
             <div className='text-black text-2xl  '>
               <p>ヘルパー名：{staff}</p>
             </div>
- 
+
             <button
               onClick={() => setState(1)}
               className='hover:bg-blue-200 hover:text-white p-2 rounded-md'
@@ -94,7 +91,7 @@ const MainPage = () => {
             </button>
           </div>
         )}
- 
+
         <div className='mt-36'>
           {state === 1 && <CamerajsQR2 />}
           {state === 1 && (
@@ -132,4 +129,5 @@ const MainPage = () => {
     </div>
   );
 };
- 
+
+export default MainPage;
