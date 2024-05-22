@@ -77,7 +77,7 @@ export default function Home() {
       </div>
 
       {/* Footer */}
-      <footer className='sticky bottom-0 left-0 z-20 w-full p-4 bg-gray-300 border-t shadow md:flex md:items-center md:justify-center md:p-6 dark:bg-gray-300 dark:border-gray-600'>
+      <footer className='sticky bottom-0 left-0 z-20 w-full p-4 bg-gray-200 border-t shadow md:flex md:items-center md:justify-center md:p-6 dark:bg-gray-300 dark:border-gray-600'>
         <p className='text-2xl font-bold text-center'>
           ヘルパーステーション{" "}
           <span className='text-yellow-500 text-3xl'>OCC</span>
