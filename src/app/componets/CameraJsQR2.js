@@ -2,14 +2,14 @@ import React, { useRef, useEffect, useState } from "react";
 import jsQR from "jsqr-es6";
 import { useStaff } from "@/lib/utils/StaffProvider";
 
-const CameraJsQR2 = () => {
+const CameraJsQR2 = ({ onQRCodeScanned }) => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const [qrCodeText, setQrCodeText] = useState("");
   const [qrCodeJson, setQrCodeJson] = useState(null);
   const [error, setError] = useState(null);
   const { setCustomer } = useStaff();
-  const { staff } = useStaff("")
+  const { staff } = useStaff();
 
   const resetQrCodeText = () => {
     setQrCodeText("");
@@ -67,6 +67,8 @@ const CameraJsQR2 = () => {
           setQrCodeJson(jsonData.name);
           setCustomer(jsonData.name);
           setError(null);
+          // QRコードが正常に読み込まれたらコールバック関数を呼び出す
+          onQRCodeScanned();
         } catch (e) {
           console.error("Failed to parse JSON:", e);
           setQrCodeText(code.data);

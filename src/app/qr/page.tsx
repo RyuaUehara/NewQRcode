@@ -26,6 +26,7 @@ const MainPage = () => {
     const year = today.getFullYear();
     const month = `${today.getMonth() + 1}`.padStart(2, "0");
     const day = `${today.getDate()}`.padStart(2, "0");
+
     return `${year}-${month}-${day}`;
   };
 
@@ -56,6 +57,10 @@ const MainPage = () => {
       }),
     });
     console.log(staffid, customer, out_time);
+  };
+
+  const handleQRCodeScanned = () => {
+    setState(2);
   };
 
   return (
@@ -96,7 +101,7 @@ const MainPage = () => {
         )}
 
         <div className='mt-36'>
-          {state === 1 && <CamerajsQR2 />}
+          {state === 1 && <CamerajsQR2 onQRCodeScanned={handleQRCodeScanned} />}
           {state === 1 && (
             <div className=' flex justify-center gap-20 '>
               {" "}
