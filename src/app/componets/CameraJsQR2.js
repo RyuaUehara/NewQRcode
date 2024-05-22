@@ -9,6 +9,7 @@ const CameraJsQR2 = () => {
   const [qrCodeJson, setQrCodeJson] = useState(null);
   const [error, setError] = useState(null);
   const { setCustomer } = useStaff();
+  const { staff } = useStaff("")
 
   const resetQrCodeText = () => {
     setQrCodeText("");
@@ -80,27 +81,31 @@ const CameraJsQR2 = () => {
   };
 
   return (
-    <div className='max-w-full px-4'>
-      <div className='mt-0'>
-        <p className='text-center font-bold text-3xl'>QRコード</p>
-        <p className='text-center font-bold text-3xl'>読み込んでください</p>
+    <div className="max-w-full px-4">
+      <div className="mt-0">
+        <div className="text-black text-2xl  ">
+          <p>ヘルパー名：{staff}</p>
+        </div>
+
+        <p className="text-center font-bold text-3xl">QRコード</p>
+        <p className="text-center font-bold text-3xl">読み込んでください</p>
       </div>
 
       <video ref={videoRef} style={{ display: "none" }} />
       <canvas ref={canvasRef} style={{ display: "none" }} />
 
       {/* Center the video element horizontally and make it responsive */}
-      <div className='flex justify-center'>
-        <div className='w-full sm:w-2/3 md:w-1/2 lg:w-1/3'>
+      <div className="flex justify-center">
+        <div className="w-full sm:w-2/3 md:w-1/2 lg:w-1/3">
           <video
             ref={videoRef}
-            className='rounded-2xl border-double border-4 w-full'
+            className="rounded-2xl border-double border-4 w-full"
             autoPlay
           />
         </div>
       </div>
 
-      <p className='p-5 text-center w-full pt-5 h-20'>{qrCodeText}</p>
+      <p className="p-5 text-center w-full pt-5 h-20">{qrCodeText}</p>
     </div>
   );
 };
