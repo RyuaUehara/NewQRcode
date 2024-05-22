@@ -34,14 +34,14 @@ export default function Home() {
   };
 
   return (
-    <div className='w-screen flex flex-col min-h-screen'>
+    <div className='w-screen flex flex-col min-h-screen items-center'>
       {/* Header */}
-      <header className='bg-pink-300 text-white py-4 text-center mb-4'>
-        <h1 className='text-3xl font-bold'>ヘルパー名選択ページ</h1>
+      <header className="bg-pink-300  p-4 sticky w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
+        <h1 className='text-3xl font-bold text-center'>ヘルパー名選択画面</h1>
       </header>
 
       {/* Content */}
-      <div className='flex-grow py-40 px-4 text-center'>
+      <div className='flex-grow py-8 px-4 flex flex-col items-center justify-center'>
         <div className='mb-4'>
           <div className='mb-3'>ヘルパー名を選択↓</div>
           <label className='text-center font-bold text-1xl' htmlFor='staffid'>
@@ -77,8 +77,8 @@ export default function Home() {
       </div>
 
       {/* Footer */}
-      <footer className='bg-gray-300 text-black py-4 text-center mt-auto'>
-        <p className='text-2xl font-bold'>
+      <footer className='sticky bottom-0 left-0 z-20 w-full p-4 bg-gray-300 border-t shadow md:flex md:items-center md:justify-center md:p-6 dark:bg-gray-300 dark:border-gray-600'>
+        <p className='text-2xl font-bold text-center'>
           ヘルパーステーション{" "}
           <span className='text-yellow-500 text-3xl'>OCC</span>
         </p>
