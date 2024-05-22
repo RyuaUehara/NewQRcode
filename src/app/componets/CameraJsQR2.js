@@ -81,10 +81,10 @@ const CameraJsQR2 = () => {
   };
 
   return (
-    <div className="">
-      <p className="text-center w-full font-bold text-4xl pb-2">QRコード</p>
+    <div className=''>
+      <p className='text-center w-full font-bold text-4xl pb-2'>QRコード</p>
 
-      <p className="text-center w-full font-bold text-4xl pb-2">
+      <p className='text-center w-full font-bold text-4xl pb-2'>
         読み込んでください
       </p>
       <video ref={videoRef} style={{ display: "none" }} />
@@ -92,21 +92,21 @@ const CameraJsQR2 = () => {
       <div>
         <video
           ref={videoRef}
-          width="320"
-          height="240"
-          className="rounded-2xl border-double border-4 "
+          width='320'
+          height='240'
+          className='rounded-2xl border-double border-4 '
           autoPlay
         />
       </div>
-      <p className="p-5 text-center w-full pt-5 h-20">{qrCodeText}</p>
+      <p className='p-5 text-center w-full pt-5 h-20'>{qrCodeText}</p>
 
-      <div className="w-full flex justify-center  ">
-        <button
+      <div className='w-full flex justify-center  '>
+        {/* <button
           onClick={resetQrCodeText}
           className="bg-pink-400 text-white font-semibold text-5xl  px-10 py-4 mb-10 rounded-3xl"
         >
           更新
-        </button>
+        </button> */}
       </div>
     </div>
   );
