@@ -63,8 +63,12 @@ const MainPage = () => {
       <div className='flex flex-col h-screen w-full items-center'>
         <div className='bg-pink-300 text-white py-4 text-center mb-4 w-full items-center'>
           <div>
-            <h1 className='text-5xl font-bold text-center'>メインページ</h1>
-            <Link href={"/"}>最初に戻る</Link>
+            <h1 className='text-5xl font-bold text-center w-full'>
+              メインページ
+            </h1>
+            <p>
+              <Link href="/">最初に戻る</Link>
+            </p>
           </div>
           <div>
             <div>
@@ -74,7 +78,7 @@ const MainPage = () => {
         </div>
         {state === 0 && (
           <div className='bg-white w-full h-screen flex flex-col justify-center items-center content-center font-bold'>
-            <div className='text-black text-2xl'>
+            <div className='text-black text-2xl  '>
               <p>ヘルパー名：{staff}</p>
             </div>
 
@@ -96,7 +100,7 @@ const MainPage = () => {
         <div className='mt-36'>
           {state === 1 && <CamerajsQR2 />}
           {state === 1 && (
-            <div className=' flex justify-center gap-32 '>
+            <div className=' flex justify-center gap-20 '>
               {" "}
               <Link
                 href='/'
@@ -113,10 +117,35 @@ const MainPage = () => {
             </div>
           )}
           {state === 2 && (
-            <div>
-              <p>利用者名：{customer}</p>
-              <button onClick={handlesubmitin}>入室</button>
-              <button onClick={handlesubmitout}>退室</button>
+            <div className='flex justify-start mt-0 h-screen'>
+              <div className='flex flex-col items-center'>
+                {/* Display customer name */}
+                <div className='mb-6 text-xl'>
+                  <p>利用者名：{customer}</p>
+                </div>
+
+                <div className='flex flex-col items-center justify-start'>
+                  {/* Label for helperID */}
+                  <label
+                    className='block mb-2 text-sm font-medium text-gray-900 dark:text-black'
+                    htmlFor='helperID'
+                  ></label>
+                </div>
+
+                <div className='flex justify-center mb-8'>
+                  {/* Button for entry */}
+                  <button onClick={handlesubmitin} className='focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800'>
+                    入出
+                  </button>
+                  {/* Button for exit */}
+                  <button onClick={handlesubmitout} className='focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900'>
+                    退出
+                  </button>
+                </div>
+
+                <hr />
+
+              </div>
             </div>
           )}
         </div>
