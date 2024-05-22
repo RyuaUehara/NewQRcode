@@ -62,8 +62,8 @@ const MainPage = () => {
     return (
         <div className="container m-auto">
             <div className="flex flex-col h-screen w-full items-center">
-                <div className="bg-black w-full text-white">
-                    <h1 className="text-5xl font-bold">Main Page</h1>
+                <div className="bg-pink-300 text-white py-4 text-center mb-4 w-full items-center">
+                    <h1 className="text-5xl font-bold text-center">Main Page</h1>
                     <div>
                         <div className="text-white">
                             <p>ヘルパー名：{staff}</p>
@@ -71,12 +71,6 @@ const MainPage = () => {
                         <div>
                             <p>日付：{currentDate}</p>
                         </div>
-                    </div>
-                    <Link href="/">Back to Home</Link>
-                    <div className="flex space-x-10">
-                        <button onClick={() => setState(0)}>Page A</button>
-                        <button onClick={() => setState(1)}>Page B</button>
-                        <button onClick={() => setState(2)}>Page C</button>
                     </div>
                 </div>
                 {state === 0 &&
