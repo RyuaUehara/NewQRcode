@@ -37,7 +37,7 @@ export default function Home() {
     <div className='w-screen flex flex-col min-h-screen'>
       {/* Header */}
       <header className='bg-pink-300 text-white py-4 text-center mb-4'>
-        <h1 className='text-3xl font-bold'>訪問介護時間管理</h1>
+        <h1 className='text-3xl font-bold'>ヘルパー名選択ページ</h1>
       </header>
 
       {/* Content */}
@@ -69,7 +69,7 @@ export default function Home() {
         <div className='mt-20'>
           <Link
             href='/qr'
-            className='bg-blue-400 text-white font-bold px-6 py-4 rounded-lg mr-2 hover:bg-blue-800 '
+            className='bg-blue-400 text-white font-bold px-6 py-4 rounded-lg mr-2 hover:bg-blue-800'
           >
             次へ
           </Link>
