@@ -46,8 +46,8 @@ const MainPage = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        staffid,
         staff,
+        staffid,
         customer,
       }),
     });
@@ -165,25 +165,23 @@ const MainPage = () => {
                   終了
                 </button>
               </div>
-
-              <div>
-                {/* visitLogsの表示 */}
-                <h2 className='text-2xl font-bold mb-4'>訪問履歴</h2>
-                <ul className='space-y-2'>
-                  {visitLogs.map((log) => (
-                    <li key={log.id} className='border p-2 rounded'>
-                      <p>ヘルパーID: {log.staffid}</p>
-                      <p>ヘルパー名: {log.staffname}</p>
-                      <p>利用者名: {log.customername}</p>
-                      <p>入室時間: {new Date(log.in_time).toLocaleString()}</p>
-                      <p>退室時間: {log.out_time ? new Date(log.out_time).toLocaleString() : "未退室"}</p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
               <hr />
             </div>
+            <div>
+              {/* visitLogsの表示 */}
+              <h2 className='text-2xl font-bold mb-4'>訪問履歴</h2>
+              <ul className='space-y-2'>
+                {visitLogs.map((log) => (
+                  <li key={log.id} className='border p-2 rounded'>
+                    <p>ヘルパー名: {log.staffname}</p>
+                    <p>利用者名: {log.customername}</p>
+                    <p>入室時間: {new Date(log.in_time).toLocaleString()}</p>
+                    <p>退室時間: {log.out_time ? new Date(log.out_time).toLocaleString() : "未退室"}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
           </div>
         )}
       </div>
