@@ -13,6 +13,8 @@ const MainPage = () => {
   const [out_time, setOut_time] = useState<visitType[]>([]);
   const [currentDate, setCurrentDate] = useState("");
   const [visitLogs, setVisitLogs] = useState<visitType[]>([]); // 新しくステートを追加
+  const [isSubmittingIn, setIsSubmittingIn] = useState(false);
+  const [isSubmittingOut, setIsSubmittingOut] = useState(false);
 
   const { staffid, staff, customer } = useStaff(); // customerを上に移動
 
@@ -40,6 +42,8 @@ const MainPage = () => {
   };
 
   const handlesubmitin = async () => {
+    if (isSubmittingIn) return;
+    setIsSubmittingIn(true);
     await fetch("/api/inout", {
       method: "POST",
       headers: {
@@ -52,9 +56,13 @@ const MainPage = () => {
       }),
     });
     fetchVisitLogs(); // データを再取得して最新の状態に更新
+    setIsSubmittingIn(false);
+    window.location.href = "/";
   };
 
   const handlesubmitout = async () => {
+    if (isSubmittingOut) return;
+    setIsSubmittingOut(true);
     await fetch("/api/inout", {
       method: "PUT",
       headers: {
@@ -68,22 +76,25 @@ const MainPage = () => {
     });
     console.log(staffid, customer, out_time);
     fetchVisitLogs(); // データを再取得して最新の状態に更新
+    setIsSubmittingOut(false);
+    window.location.href = "/";
   };
 
   const handleQRCodeScanned = () => {
     setState(2);
   };
-
   return (
     <div className='flex flex-col min-h-screen w-full items-center'>
       <div className='bg-pink-300 sticky p-4 w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600'>
-        <h1 className='text-3xl font-bold text-center w-full'>メインページ</h1>
+        <h1 className='text-3xl font-bold text-center w-full'>SMILE MEMORIES</h1>
       </div>
 
       {state === 0 && (
         <div className='bg-white w-full h-screen flex flex-col justify-center items-center content-center font-bold'>
           <div className='text-black text-2xl'>
             <p>日付：{currentDate}</p>
+          </div>
+          <div className='text-black text-2xl'>
             <p>ヘルパー名：{staff}</p>
           </div>
 
@@ -122,69 +133,73 @@ const MainPage = () => {
             >
               戻る
             </Link>
-            <button
-              onClick={() => setState(2)}
-              className='bg-blue-400 text-white font-bold px-6 py-4 rounded-lg hover:bg-blue-800 '
-            >
-              次へ
-            </button>
           </div>
         )}
         {state === 2 && (
           <div className=''>
-            <div className='flex flex-col mt-24'>
+            <div className='flex flex-col mt-24 '>
               {/* Display customer name */}
-              <div className='mb-6 text-xl'>
+              <div className='mb-6 text-xl static'>
                 <p>ヘルパー名：{staff}</p>
                 <br />
                 <p>利用者名：{customer}</p>
-              </div>
 
-              <div className=''>
-                {/* Label for helperID */}
-                <label
-                  className='block mb-2 text-sm font-medium text-gray-900 dark:text-black'
-                  htmlFor='helperID'
-                ></label>
-              </div>
+                <div className=''>
+                  {/* Label for helperID */}
+                  <label
+                    className='block mb-2 text-sm font-medium text-gray-900 dark:text-black'
+                    htmlFor='helperID'
+                  ></label>
+                </div>
 
-              <div className='flex justify-center mb-8 gap-16'>
-                {/* Button for entry */}
+                <div className='flex justify-center mb-8 gap-16 mt-8'>
+                  {/* Button for entry */}
 
-                <button
-                  onClick={handlesubmitin}
-                  className='bg-blue-400 p-4  text-4xl text-white font-bold px-6 py-4 rounded-lg mr-2 hover:bg-blue-500'
-                >
-                  開始
-                </button>
-                {/* Button for exit */}
-                <button
-                  onClick={handlesubmitout}
-                  className='bg-pink-300 p-4  text-4xl text-white font-bold px-6 py-4 rounded-lg mr-2 hover:bg-pink-400'
-                >
-                  終了
-                </button>
+                  <button
+                    onClick={handlesubmitin}
+                    className='bg-blue-400 p-4  text-4xl text-white font-bold px-6 py-4 rounded-lg mr-2 hover:bg-blue-500'
+                  >
+                    開始
+                  </button>
+                  {/* Button for exit */}
+                  <button
+                    onClick={handlesubmitout}
+                    className='bg-pink-300 p-4  text-4xl text-white font-bold px-6 py-4 rounded-lg mr-2 hover:bg-pink-400'
+                  >
+                    終了
+                  </button>
+                </div>
               </div>
               <hr />
 
-              <div>
+              <div className='block'>
                 {/* visitLogsの表示 */}
-                <h2 className='text-2xl font-bold mb-4'>訪問履歴</h2>
-                <ul className='space-y-2'>
-                  {visitLogs.map((log) => (
-                    <li key={log.id} className='border p-2 rounded'>
-                      <p>ヘルパー名: {log.staffname}</p>
-                      <p>利用者名: {log.customername}</p>
-                      <p>入室時間: {new Date(log.in_time).toLocaleString()}</p>
-                      <p>
-                        退室時間:{" "}
-                        {log.out_time
-                          ? new Date(log.out_time).toLocaleString()
-                          : "未退室"}
-                      </p>
-                    </li>
-                  ))}
-                </ul>
+                <h2 className='flex justify-center text-2xl font-bold mb-4'>訪問履歴</h2>
+
+                <div className='overflow-y-scroll scroll-smooth h-80'>
+                  <div className='flex flex-col items-center justify-start whitespace-normal'>
+                    <ul className='space-y-2'>
+                      {visitLogs.map((log) => (
+                        <li
+                          key={log.id}
+                          className='rounded-lg shadow-md p-4 border-4 border-pink-300 border-opacity-100'
+                        >
+                          <p>ヘルパー名: {log.staffname}</p>
+                          <p>利用者名: {log.customername}</p>
+                          <p>
+                            入室時間: {new Date(log.in_time).toLocaleString()}
+                          </p>
+                          <p>
+                            退室時間:{" "}
+                            {log.out_time
+                              ? new Date(log.out_time).toLocaleString()
+                              : "未退室"}
+                          </p>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -198,8 +213,7 @@ const MainPage = () => {
           <span className='text-yellow-500 text-3xl'>OCC</span>
         </p>
       </footer>
-    </div>
-  );
+    </div>);
 };
 
 export default MainPage;

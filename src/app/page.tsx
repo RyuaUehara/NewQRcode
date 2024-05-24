@@ -11,6 +11,7 @@ export default function Home() {
   const router = useRouter();
   const { staffid, setStaffid } = useStaff();
   const { staff, setStaff } = useStaff();
+  const [error, setError] = useState<boolean>(false); // エラー状態を追加
 
   useEffect(() => {
     const fetchstaffs = async () => {
@@ -30,6 +31,15 @@ export default function Home() {
     if (selectedstaff) {
       setStaffid(selectedstaff.id);
       setStaff(selectedstaff.staffname);
+      setError(false); // エラー状態をリセット
+    }
+  };
+
+  const handleNextClick = () => {
+    if (!staff) {
+      setError(true); // スタッフが選択されていない場合にエラーを設定
+    } else {
+      router.push(`/qr/${staffid}`);
     }
   };
 
@@ -37,7 +47,7 @@ export default function Home() {
     <div className='w-screen flex flex-col min-h-screen items-center'>
       {/* Header */}
       <header className='bg-pink-300 sticky p-4 w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600'>
-        <h1 className='text-3xl font-bold text-center'>ヘルパー名選択画面</h1>
+        <h1 className='text-3xl font-bold text-center'>SMILE MEMORIES</h1>
       </header>
 
       {/* Content */}
@@ -52,7 +62,7 @@ export default function Home() {
               style={{ width: "250px ", height: "100px" }} // Adjust the width as needed
             >
               <option value='' className='' disabled>
-                ヘルパー名：{staff}
+                ヘルパー名:
               </option>
               {staffs.map((staff) => (
                 <option
@@ -67,17 +77,20 @@ export default function Home() {
           </label>
         </div>
         <div className='mt-20'>
-          <Link
-            href={`/qr/${staffid}`}
+          <button
+            onClick={handleNextClick}
             className='bg-blue-400 p-4  text-4xl text-white font-bold px-6 py-4 rounded-lg mr-2 hover:bg-blue-800'
           >
             次へ
-          </Link>
+          </button>
+          {error && (
+            <p className='text-red-500'>ヘルパー名を選択してください。</p>
+          )}
         </div>
       </div>
 
       {/* Footer */}
-      <footer className='sticky bottom-0 left-0 z-20 w-full p-4 bg-white border-t border-gray-200 shadow md:flex md:items-center md:justify-center md:p-6 dark:bg-gray-300 dark:border-gray-600'>
+      <footer className='sticky bottom-0 left-0 z-20 w-full p-4 bg-gray-200 border-t shadow md:flex md:items-center md:justify-center md:p-6 dark:bg-gray-300 dark:border-gray-600'>
         <p className='text-2xl font-bold '>
           ヘルパーステーション{" "}
           <span className='text-yellow-500 text-3xl'>OCC</span>
