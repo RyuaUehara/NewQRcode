@@ -11,12 +11,12 @@ const CameraJsQR2 = ({ onQRCodeScanned }) => {
   const { setCustomer } = useStaff();
   const { staff } = useStaff();
 
-  const resetQrCodeText = () => {
+  /*const resetQrCodeText = () => {
     setQrCodeText("");
     setQrCodeJson(null);
     setError(null);
     window.location.reload();
-  };
+  };*/
 
   useEffect(() => {
     const initializeCamera = async () => {
@@ -84,7 +84,7 @@ const CameraJsQR2 = ({ onQRCodeScanned }) => {
 
   return (
 <div className=''>
-      <div className='text-center mt-5 '>
+      <div className='text-center'>
         <p className='text-3xl'>
           QRコード <br className='sm:hidden' />{" "}
           <span className='block'>読み込んでください</span>
