@@ -36,7 +36,7 @@ export default function Home() {
   return (
     <div className='w-screen flex flex-col min-h-screen items-center'>
       {/* Header */}
-      <header className='bg-white dark:bg-pink-300 p-4 sticky w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600'>
+      <header className='bg-pink-300 sticky p-4 w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600'>
         <h1 className='text-3xl font-bold text-center'>ヘルパー名選択画面</h1>
       </header>
 
@@ -68,7 +68,7 @@ export default function Home() {
         </div>
         <div className='mt-20'>
           <Link
-            href='/qr'
+            href={`/qr/${staffid}`}
             className='bg-blue-400 p-4  text-4xl text-white font-bold px-6 py-4 rounded-lg mr-2 hover:bg-blue-800'
           >
             次へ

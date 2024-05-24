@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import CamerajsQR2 from "@/app/componets/CameraJsQR2";
 import { useStaff } from "@/lib/utils/StaffProvider";
 //import { staffType } from "../api/staff/type";
-import { visitType } from "../api/inout/type";
+import { visitType } from "@/app/api/inout/type";
 import { FaCameraRetro } from "react-icons/fa";
 
 const MainPage = () => {
@@ -32,7 +32,7 @@ const MainPage = () => {
   };
 
   const fetchVisitLogs = async () => {
-    const response = await fetch("/api/inout", {
+    const response = await fetch(`/api/inout/${staffid}`, {
       method: "GET",
     });
     const data = await response.json();
@@ -45,6 +45,11 @@ const MainPage = () => {
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({
+        staff,
+        staffid,
+        customer,
+      }),
     });
     fetchVisitLogs(); // データを再取得して最新の状態に更新
   };
@@ -99,28 +104,21 @@ const MainPage = () => {
             {" "}
             <Link
               href='/'
-              className='bg-blue-400 text-white font-bold px-6 py-4 rounded-lg hover:bg-blue-800 '
+              className='bg-blue-400 p-4  text-4xl text-white font-bold px-6 py-4 rounded-lg mr-2 hover:bg-blue-800'
             >
               戻る
             </Link>
-            <button
-              onClick={() => setState(2)}
-              className='bg-blue-400 text-white font-bold px-6 py-4 rounded-lg hover:bg-blue-800 '
-            >
-              次へ
-            </button>
           </div>
         </div>
       )}
 
-      <div className='mt-36 overflow-y-auto'>
+      <div className='flex flex-col min-h-screen w-full items-center'>
         {state === 1 && <CamerajsQR2 onQRCodeScanned={handleQRCodeScanned} />}
         {state === 1 && (
-          <div className=' flex justify-center gap-20 '>
-            {" "}
+          <div className='flex justify-center gap-20 mt-20'>
             <Link
               href='/'
-              className='bg-blue-400 text-white font-bold px-6 py-4 rounded-lg hover:bg-blue-800 '
+              className='bg-blue-400 p-4  text-4xl text-white font-bold px-6 py-4 rounded-lg mr-2 hover:bg-blue-800'
             >
               戻る
             </Link>
@@ -133,11 +131,12 @@ const MainPage = () => {
           </div>
         )}
         {state === 2 && (
-          <div className='flex flex-col justify-between items-center h-screen'>
-            <div className='flex flex-col items-center'>
+          <div className=''>
+            <div className='flex flex-col mt-24'>
               {/* Display customer name */}
               <div className='mb-6 text-xl'>
                 <p>ヘルパー名：{staff}</p>
+                <br />
                 <p>利用者名：{customer}</p>
               </div>
 
@@ -149,18 +148,25 @@ const MainPage = () => {
                 ></label>
               </div>
 
-              <div className='flex justify-center mb-8'>
+              <div className='flex justify-center mb-8 gap-16'>
                 {/* Button for entry */}
 
-                <button onClick={handlesubmitin} className='focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800'>
+                <button
+                  onClick={handlesubmitin}
+                  className='bg-blue-400 p-4  text-4xl text-white font-bold px-6 py-4 rounded-lg mr-2 hover:bg-blue-500'
+                >
                   開始
                 </button>
                 {/* Button for exit */}
-                <button onClick={handlesubmitout} className='focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900'>
+                <button
+                  onClick={handlesubmitout}
+                  className='bg-pink-300 p-4  text-4xl text-white font-bold px-6 py-4 rounded-lg mr-2 hover:bg-pink-400'
+                >
                   終了
                 </button>
               </div>
               <hr />
+
               <div>
                 {/* visitLogsの表示 */}
                 <h2 className='text-2xl font-bold mb-4'>訪問履歴</h2>
@@ -170,13 +176,16 @@ const MainPage = () => {
                       <p>ヘルパー名: {log.staffname}</p>
                       <p>利用者名: {log.customername}</p>
                       <p>入室時間: {new Date(log.in_time).toLocaleString()}</p>
-                      <p>退室時間: {log.out_time ? new Date(log.out_time).toLocaleString() : "未退室"}</p>
+                      <p>
+                        退室時間:{" "}
+                        {log.out_time
+                          ? new Date(log.out_time).toLocaleString()
+                          : "未退室"}
+                      </p>
                     </li>
                   ))}
                 </ul>
               </div>
-
-
             </div>
           </div>
         )}
