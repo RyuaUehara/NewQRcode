@@ -68,7 +68,7 @@ export default function Home() {
         </div>
         <div className='mt-20'>
           <Link
-            href='/qr'
+            href={`/qr/${staffid}`}
             className='bg-blue-400 p-4  text-4xl text-white font-bold px-6 py-4 rounded-lg mr-2 hover:bg-blue-800'
           >
             次へ

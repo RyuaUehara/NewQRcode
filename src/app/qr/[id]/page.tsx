@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import CamerajsQR2 from "@/app/componets/CameraJsQR2";
 import { useStaff } from "@/lib/utils/StaffProvider";
 //import { staffType } from "../api/staff/type";
-import { visitType } from "../api/inout/type";
+import { visitType } from "@/app/api/inout/type";
 import { FaCameraRetro } from "react-icons/fa";
 
 const MainPage = () => {
@@ -32,7 +32,7 @@ const MainPage = () => {
   };
 
   const fetchVisitLogs = async () => {
-    const response = await fetch("/api/inout", {
+    const response = await fetch(`/api/inout/${staffid}`, {
       method: "GET",
     });
     const data = await response.json();
@@ -45,6 +45,11 @@ const MainPage = () => {
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({
+        staff,
+        staffid,
+        customer,
+      }),
     });
     fetchVisitLogs(); // データを再取得して最新の状態に更新
   };
@@ -169,8 +174,8 @@ const MainPage = () => {
                     <li key={log.id} className='border p-2 rounded'>
                       <p>ヘルパー名: {log.staffname}</p>
                       <p>利用者名: {log.customername}</p>
-                      <p>入室時間: {new Date(log.in_time).toLocaleString()}</p>
-                      <p>退室時間: {log.out_time ? new Date(log.out_time).toLocaleString() : "未退室"}</p>
+                      <p>開始時間: {new Date(log.in_time).toLocaleString()}</p>
+                      <p>終了時間: {log.out_time ? new Date(log.out_time).toLocaleString() : "未退室"}</p>
                     </li>
                   ))}
                 </ul>
