@@ -46,8 +46,8 @@ const MainPage = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        staffid,
         staff,
+        staffid,
         customer,
       }),
     });
@@ -113,33 +113,74 @@ const MainPage = () => {
           </div>
         )}
 
-        <div className='mt-36'>
-          {state === 1 && <CamerajsQR2 />}
-          {state === 1 && (
-            <div className=' flex justify-center gap-32 '>
-              {" "}
-              <Link
-                href='/'
-                className='bg-blue-400 text-white font-bold px-6 py-4 rounded-lg  hover:bg-blue-800 '
-              >
-                戻る
-              </Link>
-              <button
-                onClick={() => setState(2)}
-                className='bg-blue-400 text-white font-bold px-6 py-4 rounded-lg hover:bg-blue-800 '
-              >
-                次へ
-              </button>
+      <div className='mt-36 overflow-y-auto'>
+        {state === 1 && <CamerajsQR2 onQRCodeScanned={handleQRCodeScanned} />}
+        {state === 1 && (
+          <div className=' flex justify-center gap-20 '>
+            {" "}
+            <Link
+              href='/'
+              className='bg-blue-400 text-white font-bold px-6 py-4 rounded-lg hover:bg-blue-800 '
+            >
+              戻る
+            </Link>
+            <button
+              onClick={() => setState(2)}
+              className='bg-blue-400 text-white font-bold px-6 py-4 rounded-lg hover:bg-blue-800 '
+            >
+              次へ
+            </button>
+          </div>
+        )}
+        {state === 2 && (
+          <div className='flex flex-col justify-between items-center h-screen'>
+            <div className='flex flex-col items-center'>
+              {/* Display customer name */}
+              <div className='mb-6 text-xl'>
+                <p>ヘルパー名：{staff}</p>
+                <p>利用者名：{customer}</p>
+              </div>
+
+              <div className=''>
+                {/* Label for helperID */}
+                <label
+                  className='block mb-2 text-sm font-medium text-gray-900 dark:text-black'
+                  htmlFor='helperID'
+                ></label>
+              </div>
+
+              <div className='flex justify-center mb-8'>
+                {/* Button for entry */}
+
+                <button onClick={handlesubmitin} className='focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800'>
+                  開始
+                </button>
+                {/* Button for exit */}
+                <button onClick={handlesubmitout} className='focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900'>
+                  終了
+                </button>
+              </div>
+
+              <div>
+                {/* visitLogsの表示 */}
+                <h2 className='text-2xl font-bold mb-4'>訪問履歴</h2>
+                <ul className='space-y-2'>
+                  {visitLogs.map((log) => (
+                    <li key={log.id} className='border p-2 rounded'>
+                      <p>ヘルパーID: {log.staffid}</p>
+                      <p>ヘルパー名: {log.staffname}</p>
+                      <p>利用者名: {log.customername}</p>
+                      <p>入室時間: {new Date(log.in_time).toLocaleString()}</p>
+                      <p>退室時間: {log.out_time ? new Date(log.out_time).toLocaleString() : "未退室"}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <hr />
             </div>
-          )}
-          {state === 2 && (
-            <div>
-              <p>利用者名：{customer}</p>
-              <button onClick={handlesubmitin}>入室</button>
-              <button onClick={handlesubmitout}>退室</button>
-            </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
       <footer className='bg-gray-300 text-black py-6 text-center     w-full'>
         <p className='text-2xl font-bold'>
