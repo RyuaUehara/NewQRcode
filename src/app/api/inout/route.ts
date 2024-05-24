@@ -13,16 +13,26 @@ export const POST = async (req: Request, res: NextResponse) => {
   return NextResponse.json(in_visit);
 };
 
-export const PUT = async (req:Request,res:NextResponse)  => {
-  const { staffid, customer} = await req.json();
-  const out_time = new Date();
+export const PUT = async (req: Request, res: NextResponse) => {
+  const { staffid, customer } = await req.json();
+  const now = new Date();
+  const jstOffset = 9 * 60 * 60 * 1000; // 9時間をミリ秒に変換
+  const out_time = new Date(now.getTime() + jstOffset);
   const out_visit = await prisma.visit.updateMany({
-    data:{out_time},
-    where:{
-      staffid:staffid,
-      customername:customer,
-      out_time:null,
+    data: { out_time },
+    where: {
+      staffid: staffid,
+      customername: customer,
+      out_time: null,
     },
   });
   return NextResponse.json(out_visit);
+};
+
+
+export const GET = async (req: Request, res: NextResponse) => {
+  const view_logs = await prisma.visit.findMany({
+    orderBy: { in_time: "desc" },
+  });
+  return NextResponse.json(view_logs);
 };

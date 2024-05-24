@@ -36,8 +36,8 @@ export default function Home() {
   return (
     <div className='w-screen flex flex-col min-h-screen items-center'>
       {/* Header */}
-      <header className=' bg-pink-300 p-4 sticky w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600'>
-        <h1 className='text-3xl font-bold text-center'>ヘルパー名選択画面</h1>
+      <header className='bg-pink-300 text-white py-4 text-center mb-4'>
+        <h1 className='text-3xl font-bold'>ヘルパー名選択ページ</h1>
       </header>
  
       {/* Content */}
@@ -69,7 +69,7 @@ export default function Home() {
         <div className='mt-20'>
           <Link
             href='/qr'
-            className='focus:outline-none text-white bg-blue-400 hover:bg-blue-500 focus:ring-4 focus:blue-500 font-bold px-6 py-4 p-4 text-4xl rounded-lg mr-2'
+            className='bg-blue-400 text-white font-bold px-6 py-4 rounded-lg mr-2 hover:bg-blue-800'
           >
             次へ
           </Link>
@@ -77,8 +77,8 @@ export default function Home() {
       </div>
  
       {/* Footer */}
-      <footer className='sticky bottom-0 left-0 z-20 w-full p-4 bg-gray-300  border-gray-200 shadow md:flex md:items-center md:justify-center md:p-6 dark:bg-gray-300 dark:border-gray-600'>
-        <p className='text-2xl font-bold text-center'>
+      <footer className='bg-gray-300 text-black py-4 text-center mt-auto'>
+        <p className='text-2xl font-bold'>
           ヘルパーステーション{" "}
           <span className='text-yellow-500 text-3xl'>OCC</span>
         </p>
