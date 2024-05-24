@@ -90,7 +90,7 @@ const MainPage = () => {
       </div>
 
       {state === 0 && (
-        <div className='bg-white w-full h-screen flex flex-col justify-center items-center content-center font-bold'>
+        <div className='bg-white h-screen flex flex-col items-center content-center font-bold'>
           <div className='text-black text-2xl'>
             <p>日付：{currentDate}</p>
           </div>
@@ -123,10 +123,10 @@ const MainPage = () => {
         </div>
       )}
 
-      <div className='flex flex-col min-h-screen w-full items-center'>
+      <div>
         {state === 1 && <CamerajsQR2 onQRCodeScanned={handleQRCodeScanned} />}
         {state === 1 && (
-          <div className='flex justify-center gap-20 mt-20'>
+          <div>
             <Link
               href='/'
               className='bg-blue-400 p-4  text-4xl text-white font-bold px-6 py-4 rounded-lg mr-2 hover:bg-blue-800'
