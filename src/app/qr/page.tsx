@@ -10,15 +10,16 @@ import { FaCameraRetro } from "react-icons/fa";
 
 const MainPage = () => {
   const [state, setState] = useState(0);
-  //const [staffname, setStaffname] = useState<staffType[]>([]);
-  //const [customername, setCustomer] = useState<string | null>(null);
   const [out_time, setOut_time] = useState<visitType[]>([]);
   const [currentDate, setCurrentDate] = useState("");
+  const [visitLogs, setVisitLogs] = useState<visitType[]>([]); // 新しくステートを追加
 
   const { staffid, staff, customer } = useStaff(); // customerを上に移動
+
   useEffect(() => {
     console.log("staffid", staffid, "staff", staff);
     setCurrentDate(getFormattedDate());
+    fetchVisitLogs(); // visitLogsを取得する関数を呼び出す
   }, [staffid, staff]); // 依存配列を追加
 
   const getFormattedDate = () => {
@@ -30,8 +31,16 @@ const MainPage = () => {
     return `${year}-${month}-${day}`;
   };
 
-  const handlesubmitin = async () => {
+  const fetchVisitLogs = async () => {
     const response = await fetch("/api/inout", {
+      method: "GET",
+    });
+    const data = await response.json();
+    setVisitLogs(data);
+  };
+
+  const handlesubmitin = async () => {
+    await fetch("/api/inout", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -42,10 +51,11 @@ const MainPage = () => {
         customer,
       }),
     });
+    fetchVisitLogs(); // データを再取得して最新の状態に更新
   };
 
   const handlesubmitout = async () => {
-    const response = await fetch("/api/inout", {
+    await fetch("/api/inout", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -57,6 +67,7 @@ const MainPage = () => {
       }),
     });
     console.log(staffid, customer, out_time);
+    fetchVisitLogs(); // データを再取得して最新の状態に更新
   };
 
   const handleQRCodeScanned = () => {
@@ -154,8 +165,21 @@ const MainPage = () => {
                   終了
                 </button>
               </div>
+
               <div>
-                
+                {/* visitLogsの表示 */}
+                <h2 className='text-2xl font-bold mb-4'>訪問履歴</h2>
+                <ul className='space-y-2'>
+                  {visitLogs.map((log) => (
+                    <li key={log.id} className='border p-2 rounded'>
+                      <p>ヘルパーID: {log.staffid}</p>
+                      <p>ヘルパー名: {log.staffname}</p>
+                      <p>利用者名: {log.customername}</p>
+                      <p>入室時間: {new Date(log.in_time).toLocaleString()}</p>
+                      <p>退室時間: {log.out_time ? new Date(log.out_time).toLocaleString() : "未退室"}</p>
+                    </li>
+                  ))}
+                </ul>
               </div>
 
               <hr />

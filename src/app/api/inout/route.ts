@@ -29,23 +29,10 @@ export const PUT = async (req: Request, res: NextResponse) => {
   return NextResponse.json(out_visit);
 };
 
-export const GET = async (req: Request, res: NextResponse) => {
-  const { staffid, customer } = await req.json();
-  const today = new Date();
-  const jstOffset = 9 * 60 * 60 * 1000;
-  const startofDay = new Date(today.getTime() + jstOffset);
-  startofDay.setHours(0, 0, 0, 0);
-  const endofDay = new Date(startofDay.getTime() + 24 * 60 * 60 * 1000);
 
-  const view_visit = await prisma.visit.findMany({
-    where: {
-      staffid: staffid,
-      customername: customer,
-      in_time: {
-        gte: startofDay,
-        lt: endofDay,
-      },
-    },
+export const GET = async (req: Request, res: NextResponse) => {
+  const view_logs = await prisma.visit.findMany({
+    orderBy: { in_time: "desc" },
   });
-  return NextResponse.json(view_visit);
+  return NextResponse.json(view_logs);
 };
