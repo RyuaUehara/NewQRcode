@@ -111,7 +111,7 @@ const MainPage = () => {
             カメラ起動
           </button>
 
-          <div className=' flex justify-center gap-20 '>
+          <div className=' flex justify-center gap-20 mt-10'>
             {" "}
             <Link
               href='/'
