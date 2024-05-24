@@ -100,18 +100,18 @@ const MainPage = () => {
 
           <button
             onClick={() => setState(1)}
-            className='hover:bg-blue-200 hover:text-white p-2 rounded-md'
+            className='hover:bg-blue-200 hover:text-white p-2 rounded-md mt-10'
           >
             <FaCameraRetro style={{ fontSize: "10rem" }} />
           </button>
           <button
-            className='hover:bg-blue-200 hover:text-white p-4 rounded-md text-4xl font-bold'
+            className='hover:bg-blue-200 hover:text-white mb-10 p-4 rounded-md text-4xl font-bold'
             onClick={() => setState(1)}
           >
             カメラ起動
           </button>
 
-          <div className=' flex justify-center gap-20 mt-10'>
+          <div className=' flex justify-center gap-20'>
             {" "}
             <Link
               href='/'
