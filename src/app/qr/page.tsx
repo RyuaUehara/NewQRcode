@@ -154,6 +154,9 @@ const MainPage = () => {
                   終了
                 </button>
               </div>
+              <div>
+                
+              </div>
 
               <hr />
             </div>

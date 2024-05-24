@@ -36,29 +36,29 @@ export default function Home() {
   return (
     <div className='w-screen flex flex-col min-h-screen items-center'>
       {/* Header */}
-      <header className="bg-pink-300  p-4 sticky w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
+      <header className='bg-white dark:bg-pink-300 p-4 sticky w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600'>
         <h1 className='text-3xl font-bold text-center'>ヘルパー名選択画面</h1>
       </header>
 
       {/* Content */}
       <div className='flex-grow py-8 px-4 flex flex-col items-center justify-center'>
         <div className='mb-4'>
-          <div className='mb-3'>ヘルパー名を選択↓</div>
+          <div className='mb-3 text-3xl'>ヘルパー名を選択↓</div>
           <label className='text-center font-bold text-1xl' htmlFor='staffid'>
             <select
-              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 appearance-none'
+              className='text-2xl bg-gray-50 border border-gray-300   rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 appearance-none'
               onChange={handleselectstaff}
               value={staff || ""}
-              style={{ width: "150px" }} // Adjust the width as needed
+              style={{ width: "250px ", height: "100px" }} // Adjust the width as needed
             >
-              <option value='' disabled>
+              <option value='' className='' disabled>
                 ヘルパー名：{staff}
               </option>
               {staffs.map((staff) => (
                 <option
                   key={staff.id}
                   value={staff.staffname}
-                  style={{ backgroundColor: "yellow" }}
+                  style={{ backgroundColor: "pink" }}
                 >
                   {staff.staffname}
                 </option>
@@ -69,7 +69,7 @@ export default function Home() {
         <div className='mt-20'>
           <Link
             href='/qr'
-            className='bg-blue-400 text-white font-bold px-6 py-4 rounded-lg mr-2 hover:bg-blue-800'
+            className='bg-blue-400 p-4  text-4xl text-white font-bold px-6 py-4 rounded-lg mr-2 hover:bg-blue-800'
           >
             次へ
           </Link>
@@ -77,8 +77,8 @@ export default function Home() {
       </div>
 
       {/* Footer */}
-      <footer className='sticky bottom-0 left-0 z-20 w-full p-4 bg-gray-200 border-t shadow md:flex md:items-center md:justify-center md:p-6 dark:bg-gray-300 dark:border-gray-600'>
-        <p className='text-2xl font-bold text-center'>
+      <footer className='sticky bottom-0 left-0 z-20 w-full p-4 bg-white border-t border-gray-200 shadow md:flex md:items-center md:justify-center md:p-6 dark:bg-gray-300 dark:border-gray-600'>
+        <p className='text-2xl font-bold '>
           ヘルパーステーション{" "}
           <span className='text-yellow-500 text-3xl'>OCC</span>
         </p>

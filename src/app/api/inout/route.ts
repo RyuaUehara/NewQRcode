@@ -36,6 +36,7 @@ export const GET = async (req: Request, res: NextResponse) => {
   const startofDay = new Date(today.getTime() + jstOffset);
   startofDay.setHours(0, 0, 0, 0);
   const endofDay = new Date(startofDay.getTime() + 24 * 60 * 60 * 1000);
+
   const view_visit = await prisma.visit.findMany({
     where: {
       staffid: staffid,
