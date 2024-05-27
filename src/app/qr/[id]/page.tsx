@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import CamerajsQR2 from "@/app/componets/CameraJsQR2";
 import { useStaff } from "@/lib/utils/StaffProvider";
 //import { staffType } from "../api/staff/type";
-import { visitType } from "../api/inout/type";
+import { visitType } from "@/api/inout/type";
 import { FaCameraRetro } from "react-icons/fa";
 
 const MainPage = () => {
