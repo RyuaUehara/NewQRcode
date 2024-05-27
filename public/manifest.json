@@ -10,7 +10,7 @@
     "icons": [
       {
         "src": "images/app2.PNG",
-        "sizes": "256x256",
+        "sizes": "192x192",
         "type": "image/png"
       },
       {
