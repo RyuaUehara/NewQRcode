@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import CamerajsQR2 from "@/app/componets/CameraJsQR2";
+import CamerajsQR2 from "@/app/componets/CamerajsQR2";
 import { useStaff } from "@/lib/utils/StaffProvider";
 //import { staffType } from "../api/staff/type";
 import { visitType } from "@/app/api/inout/type";
