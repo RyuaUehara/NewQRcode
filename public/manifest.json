@@ -9,7 +9,7 @@
     "description": "pwa web application with next.js",
     "icons": [
       {
-        "src": "images/app1.PNG",
+        "src": "images/app2.PNG",
         "sizes": "192x192",
         "type": "image/png"
       },
