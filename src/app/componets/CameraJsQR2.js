@@ -2,46 +2,55 @@ import React, { useRef, useEffect, useState } from "react";
 import jsQR from "jsqr-es6";
 import { useStaff } from "@/lib/utils/StaffProvider";
 
-const CameraJsQR2 = () => {
+const CameraJsQR2 = ({ onQRCodeScanned }) => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const [qrCodeText, setQrCodeText] = useState("");
   const [qrCodeJson, setQrCodeJson] = useState(null);
   const [error, setError] = useState(null);
   const { setCustomer } = useStaff();
+  const { staff } = useStaff();
 
   /*const resetQrCodeText = () => {
     setQrCodeText("");
     setQrCodeJson(null);
     setError(null);
     window.location.reload();
-  };
+  };*/
 
   useEffect(() => {
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      navigator.mediaDevices
-        .getUserMedia({ video: { facingMode: "environment" } })
-        .then((stream) => {
-          videoRef.current.srcObject = stream;
-          videoRef.current.play();
-          const scanInterval = setInterval(scanQRCode, 500);
-          return () => clearInterval(scanInterval); // Cleanup on unmount
-        })
-        .catch((error) => {
+    const initializeCamera = async () => {
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: "environment" },
+          });
+          if (videoRef.current) {
+            videoRef.current.srcObject = stream;
+            videoRef.current.play();
+            const scanInterval = setInterval(scanQRCode, 500);
+            return () => clearInterval(scanInterval); // Cleanup on unmount
+          }
+        } catch (error) {
           console.error("Error accessing the camera: ", error);
           setError("カメラのアクセスに失敗しました");
-        });
-    } else {
-      console.error("getUserMedia not supported");
-      setError("カメラがサポートされていません");
-    }
+        }
+      } else {
+        console.error("getUserMedia not supported");
+        setError("カメラがサポートされていません");
+      }
+    };
+
+    initializeCamera();
   }, []);
- 
+
   const scanQRCode = () => {
     const canvas = canvasRef.current;
     const video = videoRef.current;
+    if (!canvas || !video) return;
     const context = canvas.getContext("2d");
- 
+    if (!context) return;
+
     if (video.readyState === video.HAVE_ENOUGH_DATA) {
       canvas.height = video.videoHeight;
       canvas.width = video.videoWidth;
@@ -72,7 +81,7 @@ const CameraJsQR2 = () => {
       }
     }
   };
- 
+
   return (
 <div className=''>
       <div className='text-center'>
@@ -86,13 +95,9 @@ const CameraJsQR2 = () => {
         <video ref={videoRef} />
         <canvas ref={canvasRef} />
       </div>
-
-      <video ref={videoRef} style={{ display: "none" }} />
-      <canvas ref={canvasRef} style={{ display: "none" }} />
-
-      {/* Center the video element horizontally and make it responsive */}
-      <div className="flex justify-center">
-        <div className="w-full sm:w-2/3 md:w-1/2 lg:w-1/3">
+ 
+      <div className='flex justify-center items-center '>
+        <div className='w-full sm:w-2/3 md:w-1/2 lg:w-1/3 flex justify-center'>
           <video
             ref={videoRef}
             className='rounded-2xl border-double border-4'
@@ -100,10 +105,8 @@ const CameraJsQR2 = () => {
           />
         </div>
       </div>
-
-      <p className="p-5 text-center w-full pt-5 h-20">{qrCodeText}</p>
     </div>
   );
 };
- 
+
 export default CameraJsQR2;
