@@ -7,6 +7,7 @@ export const GET = async (req: Request, res: NextResponse) => {
     where: {
       active: true,
     },
+    orderBy: { id: "asc" },
   });
   return NextResponse.json(staffs);
 };
