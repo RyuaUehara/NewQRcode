@@ -10,13 +10,13 @@ const CameraJsQR2 = () => {
   const [error, setError] = useState(null);
   const { setCustomer } = useStaff();
 
-  const resetQrCodeText = () => {
+  /*const resetQrCodeText = () => {
     setQrCodeText("");
     setQrCodeJson(null);
     setError(null);
     window.location.reload();
   };
- 
+
   useEffect(() => {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices
@@ -74,31 +74,34 @@ const CameraJsQR2 = () => {
   };
  
   return (
-    <div className="max-w-full px-4">
-      <div className="mt-0">
-        <div className="text-black text-2xl  ">
-          <p>ヘルパー名：{staff}</p>
-        </div>
-
-        <p className="text-center font-bold text-3xl">QRコード</p>
-        <p className="text-center font-bold text-3xl">読み込んでください</p>
+<div className=''>
+      <div className='text-center'>
+        <p className='text-3xl'>
+          QRコード <br className='sm:hidden' />{" "}
+          <span className='block'>読み込んでください</span>
+        </p>
       </div>
  
+      <div className='mt-96' style={{ display: "none" }}>
+        <video ref={videoRef} />
+        <canvas ref={canvasRef} />
+      </div>
+
       <video ref={videoRef} style={{ display: "none" }} />
       <canvas ref={canvasRef} style={{ display: "none" }} />
- 
+
       {/* Center the video element horizontally and make it responsive */}
       <div className="flex justify-center">
         <div className="w-full sm:w-2/3 md:w-1/2 lg:w-1/3">
           <video
             ref={videoRef}
-            className="rounded-2xl border-double border-4 w-full"
+            className='rounded-2xl border-double border-4'
             autoPlay
           />
         </div>
       </div>
 
-      <p className='p-5 text-center w-full pt-5 h-20'>{qrCodeText}</p>
+      <p className="p-5 text-center w-full pt-5 h-20">{qrCodeText}</p>
     </div>
   );
 };
