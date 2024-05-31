@@ -94,6 +94,7 @@ export default function Home() {
         <p className='text-2xl font-bold '>
           ヘルパーステーション{" "}
           <span className='text-yellow-500 text-3xl'>OCC</span>
+          <Link href="/admin">[管理者画面]</Link>
         </p>
       </footer>
     </div>
