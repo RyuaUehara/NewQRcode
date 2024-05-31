@@ -27,3 +27,8 @@ export const PUT = async (req: Request, res: NextResponse) => {
   });
   return NextResponse.json(out_visit);
 };
+
+export const GET = async (req: Request, res: NextResponse) => {
+  const Logs = await prisma.visit.findMany();
+  return NextResponse.json(Logs);
+};
